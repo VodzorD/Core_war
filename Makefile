@@ -6,11 +6,11 @@
 #    By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 17:29:26 by wscallop          #+#    #+#              #
-#    Updated: 2020/12/01 15:01:35 by wscallop         ###   ########.fr        #
+#    Updated: 2021/01/12 15:51:47 by wscallop         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem-in
+NAME = corewar
 
 CC = gcc
 FLAGS =-Wall -Wextra -Werror
@@ -21,27 +21,13 @@ LIBFT = $(LIBFT_DIRECTORY)libft.a
 LIBFT_DIRECTORY = ./libft/
 LIBFT_HEADERS = $(LIBFT_DIRECTORY)
 
-HEADERS_LIST = lem.h
+HEADERS_LIST = corewar.h\
+			   op.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = ./sources/
-SOURCES_LIST = 	alg.c \
-				ants.c \
-				argparse.c \
-				check_rooms.c \
-				free.c \
-				helpers.c \
-				init.c \
-				main.c \
-				markup.c \
-				matrix.c \
-				paths.c \
-				print.c \
-				queue.c \
-				roomparse.c \
-				steps.c \
-				valid.c
+SOURCES_LIST = 	main.c
 
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
