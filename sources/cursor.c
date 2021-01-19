@@ -6,9 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:36:43 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/13 19:58:40 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/19 18:46:03 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../includes/corewar.h"
 
 t_cursor	*create_cursor(t_player *player, int32_t offset)
 {
@@ -34,3 +36,4 @@ t_cursor		*clone_cursor(t_cursor *cursor)
 	new->last_live = cursor->last_live;
 	return (new);
 }
+

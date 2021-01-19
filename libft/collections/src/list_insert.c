@@ -19,7 +19,10 @@ t_node				*lst_prepend(t_lst *lst, t_pntr data)
 	if (!lst || !(new = ft_node_prepend(&lst->first, data)))
 		return (NULL);
 	if (!lst->length)
+	{
 		lst->last = new;
+		lst->first = new;
+	}
 	lst->length++;
 	return (new);
 }
@@ -31,7 +34,10 @@ t_node				*lst_append(t_lst *lst, t_pntr data)
 	if (!lst || !(new = ft_node_append(&lst->last, data)))
 		return (NULL);
 	if (!lst->length)
+	{
+		lst->last = new;
 		lst->first = new;
+	}
 	lst->length++;
 	return (new);
 }

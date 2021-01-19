@@ -55,6 +55,11 @@ void				itr_clear(t_itr *itr)
 	}
 }
 
+void			itr_foreach(t_itr *itr, t_fmap for_func)
+{
+	ft_lstiter(itr->current_node, (void (*)(t_node *)) for_func);
+}
+
 void				itr_reset(t_itr *itr)
 {
 	itr->cur_node = itr->start_node;

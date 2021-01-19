@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   cursor_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/15 15:38:39 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/15 15:38:39 by cshinoha         ###   ########.fr       */
+/*   Created: 2021/01/19 18:48:38 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/01/19 18:48:38 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "./incledes/corewar.h"
 
-t_player	*create_player(int id)
+void	move_cursor(t_cursor *cursor)
 {
-	t_player *player;
+	cursor ->offset = (cursor ->offset + cursor->step) % MEM_SIZE;
+	cursor->step = 0;
+	ft_bzero(cursor->args_types, 3);
+}
 
-	if (!(player = (t_player *)ft_memalloc(sizeof(t_player))))
-		ft_error(ERR_PLAYER_INIT);
-	player->id = id;
-	return (player);
+
+uint32_t	step_size(uint8_t arg_type, t_op *op)
+{
+	if (arg_type & T_REG)
+		return (REG_LEN);
+	else if (arg_type & T_DIR)
+		return (op->t_dir_size);
+	else if (arg_type & T_IND)
+		return (IND_SIZE);
+	return (0);
 }

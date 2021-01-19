@@ -65,6 +65,8 @@ typedef struct		s_info
 	t_buffer		buffer;
 }					t_info;
 
+typedef void		(*t_handler)(const char **format, t_info *info);
+
 int					ft_common(const char *format, t_info *info);
 int					ft_sbprintf(t_str_bld *str, const char *format, ...);
 int					ft_sprintf(char **str, const char *format, ...);
@@ -84,7 +86,6 @@ void				get_si(intmax_t *number, t_info *info);
 void				get_ui(uintmax_t *number, t_info *info);
 void				get_f(long double *number, t_info *info);
 void				apply_specs(t_info *info, t_data *data);
-typedef void		(*t_handler)(const char **format, t_info *info);
 void				flag_hash(const char **format, t_info *info);
 void				flag_zero(const char **format, t_info *info);
 void				flag_plus(const char **format, t_info *info);

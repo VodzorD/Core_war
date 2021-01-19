@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:09 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/14 18:00:08 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/19 20:30:35 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,21 @@ static int      valid_flags(char **av, int ac)
 }
 
 
-t_vm		create_vm(void)
+t_vm		*create_vm(void)
 {
 	t_vm	*vm;
 
 	if (!(vm = ft_memalloc(sizeof(t_vm*))))
 		ft_error("Alloc error", -1);
-	return (vm)
+	return (vm);
 }
 
 int     main(int ac, char **av)
 {
 	t_vm	*vm;
-	t_arg	*args;
+//	t_arg	*args;
 
 	vm = create_vm();
-	args = parse_options(ac, av, vm);
-	vm = init_arena(args, vm);
-
-
-
     printf("%d\n", valid_flags(av, ac));
-    return (0);
+    return ((int)vm);
 }
