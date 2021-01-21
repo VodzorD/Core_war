@@ -6,24 +6,24 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 16:43:07 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/19 20:34:52 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:33:41 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 
-static int		update_op(t_cursor *current)
+static int		update_op(t_cursor *cursor)
 {
 	uint8_t		code;
 
 	if (!cursor->till_exec)
 	{
-		code = current->vm->arena[current ->offset];
-		current->op = NULL;
+		code = cursor->vm->arena[cursor->offset];
+		cursor->op = NULL;
 		if (code >= 0x01 && code <= 0x10)
 		{
-			current->op = &g_op[code];
-			current->till_exec = current->op->cycles - 1;
+			cursor->op = &g_op[code];
+			cursor->till_exec = cursor->op->cycles - 1;
 		}
 	}
 	else if (cursor->till_exec)
@@ -40,9 +40,9 @@ static void	exec_op(t_cursor *cursor)
 	{
 		parse_types_code(cursor);
 		if (is_arg_types_valid(cursor) && is_args_valid(cursor))
-			op->func(cursor);
+			cursor->op->func(cursor);
 		else
-			cursor->step += calc_step(cursor, op);
+			cursor->step += calc_step(cursor);
 	}
 	else
 		cursor->step = OP_CODE_LEN;
@@ -54,18 +54,19 @@ static void		exec_cycle(t_vm *vm)
 {
 	t_itr	itr;
 
-	qu_itr_load(vm->cursors, &itr, NULL);
+	ft_bzero(&itr, sizeof(t_itr));
+	qu_itr_load(&vm->cursors, &itr, NULL);
 	vm->cycles++;
 	vm->cycles_after_check++;
-	itr_foreach(&itr, &exec_op)
+	itr_foreach(&itr, (t_fmap)&exec_op);
 //	while (itr_has_next(&itr))
 //		exec_op(itr_next(&itr), vm);
 	itr_clear(&itr);
 }
 
-void			*crw_exec(t_vm *vm)
+void			crw_exec(t_vm *vm)
 {
-	while (!qu_is_empty(vm->cursors))
+	while (!qu_is_empty(&vm->cursors))
 	{
 		exec_cycle(vm);
 		if (vm->cycles_to_die <= vm->cycles_after_check

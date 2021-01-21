@@ -6,12 +6,20 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:09 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/19 20:30:35 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 18:17:56 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/corewar.h"
 #include <stdio.h>
+
+int32_t		calc_addr(int32_t addr)
+{
+	addr %= MEM_SIZE;
+	if (addr < 0)
+		addr += MEM_SIZE;
+	return (addr);
+}
 
 inline int8_t	get_byte(t_vm *vm, int32_t addr)
 {
@@ -38,17 +46,18 @@ t_vm		*create_vm(void)
 {
 	t_vm	*vm;
 
-	if (!(vm = ft_memalloc(sizeof(t_vm*))))
+	if (!(vm = ft_memalloc(sizeof(t_vm))))
 		ft_error("Alloc error", -1);
+	vm->cycles_to_die = CYCLE_TO_DIE;
 	return (vm);
 }
 
 int     main(int ac, char **av)
 {
 	t_vm	*vm;
-//	t_arg	*args;
 
 	vm = create_vm();
     printf("%d\n", valid_flags(av, ac));
-    return ((int)vm);
+    crw_init_game(vm);
+	crw_exec(vm);
 }

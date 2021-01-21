@@ -64,5 +64,5 @@ int				lst_contains(t_lst *lst, t_fequal equal, t_pntr data)
 
 void			lst_foreach(t_lst *lst, t_fmap merge_func)
 {
-	ft_lstiter(lst->first, (void (*)(t_node *)) merge_func);
+	ft_lstiter(lst->first, (void (*)(t_pntr *)) merge_func);
 }

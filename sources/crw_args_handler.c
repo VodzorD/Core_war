@@ -14,11 +14,11 @@
 //TODO парсит флаги, инитциализирует t_opt и возвращает
 // t_arg с листо пар players { ид(если есть : имя файла чемпиона }
 
-t_arg 	parse_options(int ac, char **av, t_vm *vm)
-{
-	t_opt		opt = NULL;
-	t_arg		arg;
-	valid_flags(ac, av);
-	vm->opt = opt;
-	return arg;
-}
+//t_arg 	parse_options(int ac, char **av, t_vm *vm)
+//{
+//	t_opt		opt = NULL;
+//	t_arg		arg;
+//	valid_flags(ac, av);
+//	vm->opt = opt;
+//	return arg;
+//}

@@ -31,7 +31,7 @@ int				qu_is_empty(t_qu *qu)
 
 void			qu_foreach(t_qu *qu, t_fmap foreach)
 {
-	ft_lstiter(qu->head, (void (*)(t_node *)) foreach);
+	ft_lstiter(qu->head, (void (*)(t_pntr *)) foreach);
 }
 
 

@@ -6,11 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 18:47:03 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/19 18:47:03 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/20 20:02:58 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "./incledes/corewar.h"
+# include "../includes/corewar.h"
 
 static int		is_register(t_vm *vm, int32_t offset)
 {
@@ -20,19 +20,19 @@ static int		is_register(t_vm *vm, int32_t offset)
 	return (r_id >= 1 && r_id <= REG_NUMBER);
 }
 
-int				is_args_valid(t_cursor *cursor, t_op *op)
+int				is_args_valid(t_cursor *cursor)
 {
 	int32_t		i;
 	uint32_t	step;
 
 	i = 0;
-	step = OP_CODE_LEN + op->args_types_code * ARGS_CODE_LEN;
-	while (i < op->args_num)
+	step = OP_CODE_LEN + cursor->op->args_types_code * ARGS_CODE_LEN;
+	while (i < cursor->op->args_num)
 	{
 		if ((cursor->args_types[i] == T_REG)
-			&& !is_register(cursor->vm, cursor ->offset + step))
+			&& !is_register(cursor->vm, cursor->offset + step))
 			return (0);
-		step += step_size(cursor->args_types[i], op);
+		step += step_size(cursor->args_types[i], cursor->op);
 		i++;
 	}
 	return (1);

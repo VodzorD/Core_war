@@ -30,6 +30,8 @@ typedef struct				s_queue
 //	struct s_node	*next;
 //	struct s_node	*prev;
 //}					t_node;
+
+t_pntr			qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data);
 void			qu_foreach(t_qu *qu, t_fmap foreach);
 t_itr			*qu_itr_load(t_qu *qu, t_itr *itr, t_fprdct prdct);
 t_qu						*qu_by_lst(t_lst *lst);

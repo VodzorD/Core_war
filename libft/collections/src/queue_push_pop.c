@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:53:41 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/16 20:44:56 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 15:25:44 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				qu_push_tail(t_qu *qu, t_pntr data)
 {
 	t_node			*new;
 
-	if (!qu || !(new = ft_node_prepend(&qu->head, data)))
+	if (!qu || !(new = ft_node_append(&qu->head, data)))
 		return (0);
 	if (!qu->len)
 	{
@@ -68,37 +68,12 @@ t_pntr			qu_pop_tail(t_qu *qu)
 
 int				qu_push_head(t_qu *qu, t_pntr data)
 {
-	t_node			*new;
-
-	if (!qu || !(new = ft_node_append(&qu->head, data)))
+	if (!qu || !(ft_node_prepend(&qu->head, data)))
 		return (0);
 	if (!qu->len)
-	{
-		qu->head = new;
-		qu->tail = new;
-	}
+		qu->tail = qu->head;
 	qu->len++;
 	return (1);
-
-//	t_qu_entry	*node;
-//
-//	if (!qu || !(node = malloc(sizeof(t_qu_entry))))
-//		return (0);
-//	node->data = data;
-//	node->prev = NULL;
-//	node->next = qu->head;
-//	if (!qu->head)
-//	{
-//		qu->head = node;
-//		qu->tail = node;
-//	}
-//	else
-//	{
-//		qu->head->prev = node;
-//		qu->head = node;
-//	}
-//	qu->len++;
-//	return (1);
 }
 
 t_pntr			qu_pop_head(t_qu *qu)
@@ -120,14 +95,14 @@ t_pntr			qu_pop_head(t_qu *qu)
 	return (result);
 }
 
-t_pntr data		qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data)
+t_pntr			qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data)
 {
 	t_node		*node;
 
 	node = qu->head;
 	while (node)
 	{
-		if ((!equal && data == node-data)
+		if ((!equal && data == node->data)
 			|| (equal && equal(node->data, data)))
 		{
 			node = ft_node_del(node, NULL);
@@ -135,7 +110,7 @@ t_pntr data		qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data)
 				qu->head = qu->head->next;
 			if (node == qu->tail)
 				qu->tail = qu->tail->prev;
-			qu->length--;
+			qu->len--;
 			node->prev = NULL;
 			node->next = NULL;
 			free(node);

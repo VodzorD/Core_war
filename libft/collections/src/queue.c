@@ -57,14 +57,14 @@ void			qu_clear(t_qu *qu)
 
 int				qu_contains(t_qu *qu, t_pntr data)
 {
-	t_qu_entry	*ent;
+	t_node	*entry;
 
-	ent = qu->head;
-	while (ent)
+	entry = qu->head;
+	while (entry)
 	{
-		if (ent->data == data)
+		if (entry->data == data)
 			return (1);
-		ent = ent->next;
+		entry = entry->next;
 	}
 	return (0);
 }

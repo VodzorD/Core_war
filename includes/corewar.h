@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:51 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/19 20:27:33 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/20 20:34:28 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,18 +350,27 @@ static t_op		g_op[17] = {
 		}
 };
 
-void			cycles_to_die_check(t_vm *vm);
-void			*crw_exec(t_vm *vm);
-void			init_cursors(t_vm *vm);
+
+int32_t		calc_addr(int32_t addr);
+
+int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size);
+
+void		int32_to_bytecode(uint8_t *arena, int32_t addr, int32_t value,
+							  int32_t size);
+int32_t		get_op_arg(t_cursor *cursor, uint8_t index, int mod);
+uint32_t	calc_step(t_cursor *cursor);
 t_vm					*crw_init_game(t_vm *vm);
-t_cursor	*create_cursor(t_player *player, int32_t offset);
+t_player		*create_player(int id);
+void			cycles_to_die_check(t_vm *vm);
+void			crw_exec(t_vm *vm);
+void			init_cursors(t_vm *vm);
+t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm);
 t_cursor		*clone_cursor(t_cursor *cursor);
 void				move_cursor(t_cursor *cursor);
 uint32_t			step_size(uint8_t arg_type, t_op *op);
-int					is_args_valid(t_cursor *cursor, t_op *op);
+int					is_args_valid(t_cursor *cursor);
 int 				is_arg_types_valid(t_cursor *cursor); //TODO check
 void				parse_types_code(t_cursor *cursor);
-t_player			*create_player(int id);
 t_player				*parse_champion(char *filename, int num);
 int32_t					calc_addr(int32_t addr);
 int8_t					get_byte(t_vm *vm, int32_t offset);
