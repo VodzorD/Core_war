@@ -6,14 +6,16 @@
 /*   By: jpasty <jpasty@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 15:29:23 by jpasty            #+#    #+#             */
-/*   Updated: 2021/01/16 20:34:03 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/01/21 22:39:55 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 static t_player	check_plr(size_t id, char *plr_filename);
-static uint32_t	validate_magic(uint8_t *buff, size_t len);
+static uint32_t	validate_num(uint8_t **bytes, size_t size);
+static char		*validate_string(uint8_t **bytes, size_t len);
+static uint8_t	*validate_code(int fd, uint32_t prog_size);
 
 int				champ_validation(t_lst *corewar_args)
 {
@@ -23,45 +25,94 @@ int				champ_validation(t_lst *corewar_args)
 
 	pair = NULL;
 	while ((pair = itr_next(cross)))
-		lst_prepend(lst,
-			  check_plr((size_t) pair->key, pair->value, sizeof(header_t)));
-
+	{
+		lst_prepend(lst, check_plr((size_t) pair->key,
+							 pair->value, sizeof(header_t)));
+	}
 	return (EXIT_SUCCESS);
 }
 
-static t_player	check_plr(size_t id, char *plr_filename, size_t header_size)
+static t_player	check_plr(size_t id, char *plr_filename, size_t hdr_size)
 {
-	t_player	*plr;
 	int 		fd;
-	int 		ret;
-	uint8_t 	buff[header_size];
-	header_t	*hdr;
+	uint8_t 	*hdr;
+	t_player	*plr;
 
-	hdr = ft_memalloc(sizeof(header_t *));
-	if (!(plr = ft_memalloc(sizeof(t_player*))))
+	if (!(plr = ft_memalloc(sizeof(t_player))))
 		ft_error("Alloc err", -1);
 	plr->id = id;
+	if (!(hdr = malloc(sizeof(uint8_t) * hdr_size))
+		ft_error("Alloc err", -1);
 	if ((fd = open(plr_filename, O_RDONLY)) == -1)
 		ft_error("Cannot open file", -1);
-	if ((ret = read(fd, buff, header_size)) != header_size)
+	if (read(fd, hdr, header_size) != header_size)
 		ft_error("reading error", -1);
-	if (validate_magic(buff, sizeof(COREWAR_EXEC_MAGIC)) != COREWAR_EXEC_MAGIC)
-		ft_error("MAGIC doesn't exist!");
-	if
-	hdr->prog_name =
+	if (validate_num(&hdr, sizeof(COREWAR_EXEC_MAGIC))) != COREWAR_EXEC_MAGIC)
+		ft_error("MAGIC doesn't exist!", -1);
+	if (plr->prog_name = validate_str(&hdr, PROG_NAME_LENGTH))
+		ft_error("Champ name error!", -1);
+	if ((plr->code_size = validate_num(&hdr, sizeof(COREWAR_EXEC_MAGIC))) == -1)
+			ft_error("Wrong code size!", -1);
+	if (!(plr->comment = validate_str(&hdr, COMMENT_LENGTH)))
+				ft_error("Champ comment error!", -1);
+	if (!(code = validate_code(fd, prog_size)))
+		ft_error("Code doesn't match code size", -1);
+	free(hdr);
+	return (plr);
+}
+static uint8_t	*validate_code(int fd, uint32_t prog_size)
+{
+	uint8_t 	*code;
+	uint8_t		eof;
 
+	if (!(code = malloc(sizeof(uint8_t) * prog_size)))
+		return (NULL);
+	if (read(fd, code, prog_size) != prog_size)
+		return (NULL);
+	if (read(fd, &eof, 1) != 0)
+		return (NULL);
+	return (code);
 }
 
-static uint32_t	validate_magic(uint8_t *buff, size_t len)
+static char		*validate_string(uint8_t **bytes, size_t len)
 {
-	uint32_t magic;
-	int i;
+	char		*ret;
+	size_t		i;
+	size_t		offset;
 
-	magic = 0x0;
-	while (i < len)
+	i = 0;
+	offset = len;
+	while (i < 4)
+		if ((*bytes)[len + i++] != 0)
+			return NULL;
+	if (!(ret = malloc(sizeof(char) * len)))
+		return NULL;
+	while (len--)
+		ret[len] = (*bytes)[len];
+	*bytes += (offset + 4);
+	return (ret);
+}
+
+static uint32_t	validate_num(uint8_t **bytes, size_t size)
+{
+	uint32_t 	num;
+	size_t		i;
+
+	num = 0x00;
+	i = 0;
+	if (size < sizeof(uint32_t))
+		return 0; // magic is too big to be real
+	if (*bytes[0] == 0xff)
+		return -1;
+	while ((*bytes)[i] == 0x00)
+		if (i++ >= size)
+			return -1;
+	while (i < size)
 	{
-		magic += buff[i++];
-		magic<<8;
+		num += (*bytes)[i];
+		if (++i < size)
+			num <<= 8;
 	}
-	return magic;
+	*bytes += size;
+	return num;
 }
