@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:56:41 by cshinoha          #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:11:17 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,5 @@ int				lst_contains(t_lst *lst, t_fequal equal, t_pntr data)
 
 void			lst_foreach(t_lst *lst, t_fmap merge_func)
 {
-	ft_lstiter(lst->first, (void (*)(t_node *)) merge_func);
+	ft_lstiter(lst->first, (void (*)(t_pntr *)) merge_func);
 }

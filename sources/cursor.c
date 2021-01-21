@@ -6,11 +6,13 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:36:43 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/13 19:58:40 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:11:28 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
-t_cursor	*create_cursor(t_player *player, int32_t offset)
+#include "../includes/corewar.h"
+
+t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm)
 {
 	t_cursor		*cursor;
 	static uint32_t	cursor_id;
@@ -21,6 +23,7 @@ t_cursor	*create_cursor(t_player *player, int32_t offset)
 	cursor->offset = offset;
 	cursor->reg[0] = -(player->id);
 	cursor->player = player;
+	cursor->vm = vm;
 	return (cursor);
 }
 
@@ -28,9 +31,10 @@ t_cursor		*clone_cursor(t_cursor *cursor)
 {
 	t_cursor	*new;
 
-	new = create_cursor(cursor->player, cursor->offset);
-	ft_memcpy(new->reg, cursor->reg, sizeof cursor->reg)
+	new = create_cursor(cursor->player, cursor->offset, cursor->vm);
+	ft_memcpy(new->reg, cursor->reg, sizeof cursor->reg);
 	new->carry = cursor->carry;
 	new->last_live = cursor->last_live;
 	return (new);
 }
+

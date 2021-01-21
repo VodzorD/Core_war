@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 15:07:06 by cshinoha          #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:11:17 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void			qu_clear(t_qu *qu)
 
 int				qu_contains(t_qu *qu, t_pntr data)
 {
-	t_qu_entry	*ent;
+	t_node	*entry;
 
-	ent = qu->head;
-	while (ent)
+	entry = qu->head;
+	while (entry)
 	{
-		if (ent->data == data)
+		if (entry->data == data)
 			return (1);
-		ent = ent->next;
+		entry = entry->next;
 	}
 	return (0);
 }

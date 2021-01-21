@@ -6,18 +6,17 @@
 /*   By: cshinoha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/18 17:14:13 by cshinoha          #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:11:17 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../includes/coreft.h"
 
-void		ft_lstiter(t_node *lst, void (*f)(t_node *elem))
+void		ft_lstiter(t_node *lst, void (*f)(t_pntr *data))
 {
 	while (lst)
 	{
-		f(lst);
+		f(lst->data);
 		lst = lst->next;
 	}
 }

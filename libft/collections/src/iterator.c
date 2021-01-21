@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 15:06:59 by cshinoha          #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:11:17 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,11 @@ void				itr_clear(t_itr *itr)
 		}
 		ft_bzero(itr, sizeof(t_itr));
 	}
+}
+
+void			itr_foreach(t_itr *itr, t_fmap for_func)
+{
+	ft_lstiter(itr->cur_node, (void (*)(t_pntr *)) for_func);
 }
 
 void				itr_reset(t_itr *itr)

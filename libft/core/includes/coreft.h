@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 14:42:59 by cshinoha          #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/21 23:11:17 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void				ft_putendl_fd(int fd, char const *s);
 void				ft_putnbr(int n);
 void				ft_putnbr_fd(int fd, int n);
 void				ft_lstdelone(t_node **alst, void (*del)(void*));
-void				ft_lstiter(t_node *lst, void (*f)(t_node *elem));
+void				ft_lstiter(t_node *lst, void (*f)(t_pntr *data));
 void				ft_lstdel(t_node **alst, void (*del)(void *));
 void				ft_lstadd(t_node **alst, t_node *new);
 t_node				*ft_lstmap(t_node *lst, t_node *(*f)(t_node *elem));
