@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:51 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/20 20:34:28 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/13 17:04:16 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,69 @@ typedef struct			s_player
 	int32_t				code_size;
 	uint8_t				*code;
 	size_t				current_lives_num;
+	size_t				previous_lives_num;
 	ssize_t				last_live;
 }						t_player;
+
+/*
+** Cursor
+*/
+
+/*
+** id             — id number of cursor
+** carry          — special flag
+** op_code        — operator's code that is placed under cursor
+** last_live      — cycle's number when live operator was executed last time
+** till_exec — number of cycles that remains to wait
+** args_types     - types of op's each argument
+**                  before operator execution
+** offset             — address of the next operator to execute at memory
+** step           — number of bytes to shift
+** reg            — registers
+** player         — owner of cursor
+*/
+
+typedef struct			s_cursor
+{
+	uint32_t			id;
+	int					carry;
+	t_op				*op;
+	ssize_t				last_live;
+	int					till_exec;
+	uint8_t				args_types[3];
+	int32_t				offset;
+	uint32_t			step;
+	int32_t				reg[REG_NUMBER];
+	t_player			*player;
+//	struct s_cursor		*next;
+}						t_cursor;
+
+/*
+** Virtual machine
+*/
+
+/*
+** arena              — memory where players are fighting
+** players            — list of players
+** players_num        — number of players
+** last_alive         — pointer to the last player that was assigned as alive
+** cursors            — list of cursors
+** cursors_num        — number of cursors
+** lives_num          — number of executed live operators during of cycle_to_die
+** cycles             — number of cycles that was passed after start
+** cycles_to_die      — game parameter
+** cycles_after_check — number of cycles that was passed after last rules check
+** checks_num         — game parameter
+** vs                 — visualizer
+** dump_cycle         — cycle's number after which dump of arena will be created
+** dump_print_mode    — print mode of dump (32/64 bytes per line)
+** show_cycle         — number of cycles after which arena will be shown
+** show_print_mode    — print mode of show (32/64 bytes per line)
+** display_aff        — flag that reports display output of aff operator or not
+** log                — number that reports about log level.
+**                      If log is assigned as -1, it means that log doesn't
+**                      display.
+*/
 
 typedef struct			s_vm
 {

@@ -36,6 +36,7 @@ SRCNAME		= crw_dying_process.c \
                              crw_init_game.c \
                              cursor.c \
                              cursor_utils.c \
+                             champ_validation.c \
                              main.c \
                              op_args_validation.c \
                              player.c \

@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:53:41 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/21 15:25:44 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/22 19:03:16 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,26 +25,6 @@ int				qu_push_tail(t_qu *qu, t_pntr data)
 	}
 	qu->len++;
 	return (1);
-
-//	t_node		*new_entry;
-//
-//	if (!(new_entry = malloc(sizeof(t_node))))
-//		return (0);
-//	new_entry->data = data;
-//	new_entry->prev = qu->tail;
-//	new_entry->next = NULL;
-//	if (!qu->tail)
-//	{
-//		qu->head = new_entry;
-//		qu->tail = new_entry;
-//	}
-//	else
-//	{
-//		qu->tail->next = new_entry;
-//		qu->tail = new_entry;
-//	}
-//	qu->len++;
-//	return (1);
 }
 
 t_pntr			qu_pop_tail(t_qu *qu)

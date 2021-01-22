@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 15:06:24 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/19 20:32:25 by cshinoha         ###   ########.fr       */
+/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "../../core/includes/coreft.h"
 # include "list.h"
-//TODO replace by t_node
 
 typedef struct				s_queue
 {
