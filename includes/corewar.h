@@ -392,7 +392,7 @@ void					parse_show_flag(int *argc, char ***argv, t_vm *vm);
 void					parse_aff_flag(int *argc, char ***argv, t_vm *vm);
 
 void					parse_log_flag(int *argc, char ***argv, t_vm *vm);
-
+t_lst					champs_validation(t_lst *corewar_args);
 t_player				*parse_champion(char *filename, int num);
 
 /*

@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "corewar.h"
 
-//TODO парсит флаги, инитциализирует t_opt и возвращает
+//TODO парсит флаги, инициализирует t_opt и возвращает
 // t_arg с листо пар players { ид(если есть : имя файла чемпиона }
 
 //t_arg 	parse_options(int ac, char **av, t_vm *vm)
@@ -22,3 +23,10 @@
 //	vm->opt = opt;
 //	return arg;
 //}
+
+t_lst		parse_options(int ac, char **av, t_vm *vm)
+{
+	t_lst	args;
+	t_pair	*pairs;
+	t_opt
+}
