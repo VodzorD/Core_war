@@ -1,4 +1,5 @@
-void				op_add(t_vm *vm, t_cursor *cursor)
+# include "../../includes/corewar.h"
+void				op_add(t_cursor *cursor)
 {
 	int32_t	reg1;
 	int32_t	reg2;

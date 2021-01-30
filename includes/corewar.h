@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:51 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/13 17:04:16 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/22 19:04:28 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct			s_corewar_arguments
 {
 	int 				dump;
 	int 				players_count;
-	t_lst 				*players;
+	t_lst 				players;
 }						t_arg;
 
 static uint8_t			g_arg_code[3] = {
@@ -89,40 +89,6 @@ typedef struct			s_player
 	size_t				previous_lives_num;
 	ssize_t				last_live;
 }						t_player;
-
-/*
-** Cursor
-*/
-
-/*
-** id             — id number of cursor
-** carry          — special flag
-** op_code        — operator's code that is placed under cursor
-** last_live      — cycle's number when live operator was executed last time
-** till_exec — number of cycles that remains to wait
-** args_types     - types of op's each argument
-**                  before operator execution
-** offset             — address of the next operator to execute at memory
-** step           — number of bytes to shift
-** reg            — registers
-** player         — owner of cursor
-*/
-
-typedef struct			s_cursor
-{
-	uint32_t			id;
-	int					carry;
-	t_op				*op;
-	ssize_t				last_live;
-	int					till_exec;
-	uint8_t				args_types[3];
-	int32_t				offset;
-	uint32_t			step;
-	int32_t				reg[REG_NUMBER];
-	t_player			*player;
-//	struct s_cursor		*next;
-}						t_cursor;
-
 /*
 ** Virtual machine
 */
@@ -163,10 +129,7 @@ typedef struct			s_vm
 	ssize_t				cycles_to_die;
 	ssize_t				cycles_after_check;
 	size_t				checks_num;
-	ssize_t				dump_cycle;
-	int					dump_print_mode;
-	ssize_t				show_cycle;
-	int					show_print_mode;
+	t_arg				arg;
 	t_opt 				opt;
 }						t_vm;
 
@@ -412,6 +375,7 @@ static t_op		g_op[17] = {
 };
 
 
+int				champ_validation(t_lst *corewar_args, t_lst *plrs);
 int32_t		calc_addr(int32_t addr);
 
 int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size);

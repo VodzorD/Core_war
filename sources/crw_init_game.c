@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 16:19:48 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/13 16:26:44 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/22 19:46:40 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,24 @@ void	init_cursors(t_vm *vm)
 	}
 }
 
+t_pair					*create_pair(t_pntr left, t_pntr right)
+{
+	t_pair				*pair;
+
+	pair = malloc(sizeof(t_pair));
+	pair->key = left;
+	pair->value = right;
+	return (pair);
+}
+
+
 t_vm					*crw_init_game(t_vm *vm)
 {
-	lst_append(&vm->players, parse_champion("first.cor", 1));
-	lst_append(&vm->players, parse_champion("second.cor", 2));
+
+
+	lst_append(&vm->arg.players, create_pair((t_pntr) 1, ft_strdup("first.cor")));
+	lst_append(&vm->arg.players, create_pair((t_pntr) 1, ft_strdup("second.cor")));
+	champ_validation(&vm->arg.players, &vm->players);
 	init_arena(vm);
 	init_cursors(vm);
 
