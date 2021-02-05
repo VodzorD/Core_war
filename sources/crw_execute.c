@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 16:43:07 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/05 15:19:58 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/05 19:41:01 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,8 @@ static void	exec_op(t_cursor *cursor)
 		parse_types_code(cursor);
 		if (is_arg_types_valid(cursor) && is_args_valid(cursor))
 		{
-			if (cursor->vm->cycles > 8000)
-				ft_printf("cycles: %u curs: %u func: %s\n", cursor->vm->cycles, cursor->id, cursor->op->name);
+//			if (cursor->vm->cycles > 8000)
+			ft_printf("cycles: %u curs: %u func: %s\n", cursor->vm->cycles, cursor->id, cursor->op->name);
 			cursor->op->func(cursor);
 		}
 		else

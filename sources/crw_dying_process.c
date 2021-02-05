@@ -51,4 +51,5 @@ void			cycles_to_die_check(t_vm *vm)
 	}
 	lst_foreach(&vm->players, (t_fmap)&reset_live);
 	vm->cycles_after_check = 0;
+	vm->lives_num = 0;
 }

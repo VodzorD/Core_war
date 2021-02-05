@@ -13,12 +13,9 @@
 #include "../includes/corewar.h"
 #include <stdio.h>
 
-int32_t		calc_addr(int32_t addr)
+inline int32_t		calc_addr(int32_t addr)
 {
-	addr %= MEM_SIZE;
-	if (addr < 0)
-		addr += MEM_SIZE;
-	return (addr);
+	return (addr + MEM_SIZE) % MEM_SIZE;
 }
 
 inline int8_t	get_byte(t_vm *vm, int32_t addr)
