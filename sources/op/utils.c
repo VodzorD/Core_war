@@ -67,7 +67,8 @@ int32_t		get_op_arg(t_cursor *cursor, uint8_t index, int mod)
 	int32_t		value;
 
 	value = 0;
-	if (cursor->args_types[index] <= 3 && g_arg_hands[cursor->args_types[index]])
+	if (cursor->args_types[index] <= 4
+			&& g_arg_hands[cursor->args_types[index]])
 		value = g_arg_hands[cursor->args_types[index]](cursor, mod);
 	cursor->step += step_size(cursor->args_types[index], cursor->op);
 	return (value);

@@ -12,7 +12,7 @@ void				op_add(t_cursor *cursor)
 	reg2 = get_byte(cursor->vm, cursor ->offset + cursor->step);
 	cursor->step += REG_LEN;
 	value = cursor->reg[reg1 - 1] + cursor->reg[reg2 - 1];
-	cursor->carry = value != 0;
+	cursor->carry = !value;
 	reg3 = get_byte(cursor->vm, cursor ->offset + cursor->step);
 	cursor->reg[reg3 - 1] = value;
 	cursor->step += REG_LEN;

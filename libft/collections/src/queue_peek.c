@@ -49,7 +49,7 @@ t_itr			*qu_itr_load(t_qu *qu, t_itr *itr, t_fprdct prdct)
 	{
 		if (!prdct || prdct(entry->data))
 		{
-			ft_node_prepend(&itr->cur_node, entry->data);
+			ft_data_prepend(&itr->cur_node, entry->data);
 			itr->len++;
 		}
 		entry = entry->prev;

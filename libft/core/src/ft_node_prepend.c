@@ -12,16 +12,22 @@
 
 #include <coreft.h>
 
-t_node			*ft_node_prepend(t_node **begin_list, void *data)
+t_node			*ft_node_prepend(t_node **begin_list, t_node *node)
 {
 	t_node		*first;
-
-	if (!(first = ft_lstnew(data)))
-		return (NULL);
 	first->next = *begin_list;
 	if (*begin_list)
 		(*begin_list)->prev = first;
 	first->prev = NULL;
 	*begin_list = first;
 	return (*begin_list);
+}
+
+t_node			*ft_data_prepend(t_node **begin_list, void *data)
+{
+	t_node		*first;
+
+	if (!(first = ft_lstnew(data)))
+		return (NULL);
+	return (ft_node_prepend(begin_list, first));
 }

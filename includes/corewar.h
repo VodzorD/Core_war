@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   corewar.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 15:39:51 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/22 19:04:28 by cshinoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef COREWAR_H
 # define COREWAR_H
 
@@ -120,7 +108,6 @@ typedef struct			s_vm
 {
 	uint8_t				arena[MEM_SIZE];
 	t_lst				players;
-	int32_t				players_num;
 	t_player			*last_alive;
 	t_qu 				cursors;
 //	size_t				cursors_num;
@@ -171,9 +158,9 @@ int32_t			crw_tdir(t_cursor *cursor, int mode);
 int32_t			crw_tind(t_cursor *cursor, int mode);
 
 static t_arg_handler	g_arg_hands[] = {
-		crw_treg,
+		[1] = crw_treg,
 		crw_tdir,
-		[3] = crw_tind
+		[4] = crw_tind
 };
 
 

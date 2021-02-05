@@ -87,7 +87,7 @@ static t_node				*init_static_list(t_node **l, int fd)
 	}
 	if (!(s = stmnew(fd)))
 		return (NULL);
-	ft_node_prepend(l, s);
+	ft_data_prepend(l, s);
 	return (*l);
 }
 

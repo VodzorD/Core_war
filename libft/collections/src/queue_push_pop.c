@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/07 17:53:41 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/22 19:03:16 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:57:07 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int				qu_push_tail(t_qu *qu, t_pntr data)
 {
 	t_node			*new;
 
-	if (!qu || !(new = ft_node_append(&qu->head, data)))
+	if (!qu || !(new = ft_data_append(&qu->head, data)))
 		return (0);
 	if (!qu->len)
 	{
@@ -48,7 +48,7 @@ t_pntr			qu_pop_tail(t_qu *qu)
 
 int				qu_push_head(t_qu *qu, t_pntr data)
 {
-	if (!qu || !(ft_node_prepend(&qu->head, data)))
+	if (!qu || !(ft_data_prepend(&qu->head, data)))
 		return (0);
 	if (!qu->len)
 		qu->tail = qu->head;

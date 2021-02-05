@@ -6,19 +6,15 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 16:29:22 by cshinoha          #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/02 14:57:07 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <coreft.h>
 
-t_node		*ft_node_append(t_node **node, t_pntr data)
+t_node		*ft_node_append(t_node **node, t_node *new)
 {
 	t_node	*rover;
-	t_node	*new;
-
-	if (!node || !(new = ft_lstnew(data)))
-		return (NULL);
 	if (*node)
 	{
 		rover = *node;
@@ -29,4 +25,14 @@ t_node		*ft_node_append(t_node **node, t_pntr data)
 	}
 	*node = new;
 	return (new);
+}
+
+
+t_node		*ft_data_append(t_node **begin_list, t_pntr data)
+{
+	t_node	*new;
+
+	if (!begin_list || !(new = ft_lstnew(data)))
+		return (NULL);
+	return (ft_node_append(begin_list, new));
 }

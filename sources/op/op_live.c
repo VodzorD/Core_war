@@ -11,7 +11,7 @@ void				op_live(t_cursor *cursor)
 	cursor->last_live = cursor->vm->cycles;
 	player = NULL;
 //	(x >= 0 && ((unsigned int)x) == y)
-	if (player_id > 0 && (size_t)player_id < cursor->vm->players.length)
+	if (player_id > 0 && (size_t)player_id <= cursor->vm->players.length)
 	{
 		player = lst_nth_data(&cursor->vm->players, player_id - 1);
 		player->last_live = cursor->vm->cycles;

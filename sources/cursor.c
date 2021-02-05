@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 19:36:43 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/13 19:58:40 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/02 17:13:39 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_cursor		*clone_cursor(t_cursor *cursor)
 	ft_memcpy(new->reg, cursor->reg, sizeof cursor->reg);
 	new->carry = cursor->carry;
 	new->last_live = cursor->last_live;
+	ft_printf("create cursor %u, pl%u\n", new->id, new->player->id);
 	return (new);
 }
 

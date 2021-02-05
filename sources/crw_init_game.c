@@ -116,8 +116,8 @@ t_vm					*crw_init_game(t_vm *vm)
 {
 
 
+	lst_append(&vm->arg.players, create_pair((t_pntr) 2, ft_strdup("second.cor")));
 	lst_append(&vm->arg.players, create_pair((t_pntr) 1, ft_strdup("first.cor")));
-	lst_append(&vm->arg.players, create_pair((t_pntr) 1, ft_strdup("second.cor")));
 	champ_validation(&vm->arg.players, &vm->players);
 	init_arena(vm);
 	init_cursors(vm);
