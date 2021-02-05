@@ -13,9 +13,16 @@
 #ifndef QUEUE_H
 # define QUEUE_H
 
-# include "../../core/includes/coreft.h"
+# include "coreft.h"
 # include "list.h"
 //TODO replace by t_node
+
+//typedef struct		s_node
+//{
+//	void			*data;
+//	struct s_node	*next;
+//	struct s_node	*prev;
+//}					t_node;
 
 typedef struct				s_queue
 {
@@ -24,12 +31,7 @@ typedef struct				s_queue
 	size_t					len;
 }							t_qu;
 
-//typedef struct		s_node
-//{
-//	void			*data;
-//	struct s_node	*next;
-//	struct s_node	*prev;
-//}					t_node;
+
 
 t_pntr			qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data);
 void			qu_foreach(t_qu *qu, t_fmap foreach);

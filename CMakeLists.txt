@@ -1,13 +1,14 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.10.2)
 project(Corewar C)
 
 set(CMAKE_C_STANDARD 99)
 
 
 include_directories(includes)
+include_directories(libft/includes)
 include_directories(libft/collections/includes)
 include_directories(libft/core/includes)
-include_directories(libft/includes)
+include_directories(libft/getopt/includes)
 include_directories(libft/printf/includes)
 include_directories(libft/string/includes)
 
@@ -22,23 +23,23 @@ add_executable(Corewar
 		sources/main.c
 		sources/op_args_validation.c
 		sources/player.c
-		sources/op/op_add.c
-		sources/op/op_aff.c
-		sources/op/op_and.c
-		sources/op/op_fork.c
-		sources/op/op_ld.c
-		sources/op/op_ldi.c
-		sources/op/op_lfork.c
-		sources/op/op_live.c
-		sources/op/op_lld.c
-		sources/op/op_lldi.c
-		sources/op/op_or.c
-		sources/op/op_st.c
-		sources/op/op_sti.c
-		sources/op/op_sub.c
-		sources/op/op_xor.c
-		sources/op/op_zjmp.c
-		sources/op/utils.c
+#		sources/op/op_add.c
+#		sources/op/op_aff.c
+#		sources/op/op_and.c
+#		sources/op/op_fork.c
+#		sources/op/op_ld.c
+#		sources/op/op_ldi.c
+#		sources/op/op_lfork.c
+#		sources/op/op_live.c
+#		sources/op/op_lld.c
+#		sources/op/op_lldi.c
+#		sources/op/op_or.c
+#		sources/op/op_st.c
+#		sources/op/op_sti.c
+#		sources/op/op_sub.c
+#		sources/op/op_xor.c
+#		sources/op/op_zjmp.c
+#		sources/op/utils.c
 		includes/corewar.h
 		includes/op.h
 		libft/collections/includes/collections.h
@@ -130,6 +131,7 @@ add_executable(Corewar
 		libft/core/src/ft_strclr.c
 		libft/core/src/ft_strcmp.c
 		libft/core/src/ft_strcpy.c
+		libft/core/src/ft_strcspn.c
 		libft/core/src/ft_strdel.c
 		libft/core/src/ft_strdup.c
 		libft/core/src/ft_strequ.c
@@ -161,6 +163,10 @@ add_executable(Corewar
 		libft/core/src/ft_uilen.c
 		libft/core/src/ft_uitoa_base.c
 		libft/core/src/ft_uitoa_base_static.c
+		libft/getopt/includes/ft_getopt.h
+		sources/collect_flags.c
+		libft/getopt/src/ft_getopt.c
+		libft/getopt/src/ft_getopt_long.c
 		libft/includes/libft.h
 		libft/printf/includes/ft_printf.h
 		libft/printf/src/specs/apply_specs.c

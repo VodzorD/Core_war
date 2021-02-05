@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:09 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/21 18:17:56 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/01/26 19:42:03 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,12 @@ int     main(int ac, char **av)
 {
 	t_vm	*vm;
 	t_lst	*corewar_args;
+	t_lst	*args;
 
 	printf("%d\n", valid_flags(av, ac));
-	corewar_args = read_prog_args(ac, av);
 	vm = create_vm();
-    vm->players = champs_validation(corewar_args);
+	args = parse_options(ac, av, vm);
+//	vm->players = champ_validation(corewar_args);
 
     crw_init_game(vm);
 	crw_exec(vm);

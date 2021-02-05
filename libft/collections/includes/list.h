@@ -13,7 +13,7 @@
 #ifndef LIST_H
 # define LIST_H
 
-# include "../../core/includes/coreft.h"
+# include "coreft.h"
 # include "iterator.h"
 
 typedef struct			s_linked_lst

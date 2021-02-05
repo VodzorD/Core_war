@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:39:51 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/21 23:11:36 by jpasty           ###   ########.ru       */
+/*   Updated: 2021/01/27 22:29:32 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,27 +39,26 @@
 ** Arg's type — Arg's code
 */
 
-typedef struct			s_opt
-{
-	int					out;
-	int					color;
-	int					req;
-	int					pth;
-}						t_opt;
+//typedef struct			s_opt
+//{
+//	int					out;
+//	int					color;
+//	int					req;
+//	int					pth;
+//}						t_opt;
 
 typedef struct			s_corewar_arguments
 {
 	int 				dump;
 	int 				players_count;
 	t_lst 				*players;
-	t_pair
 }						t_arg;
 
-//static uint8_t			g_arg_code[3] = {
-//	T_REG,
-//	T_DIR,
-//	T_IND
-//};
+static uint8_t			g_arg_code[3] = {
+	T_REG,
+	T_DIR,
+	T_IND
+};
 
 /*
 ** Player
@@ -87,69 +86,8 @@ typedef struct			s_player
 	int32_t				code_size;
 	uint8_t				*code;
 	size_t				current_lives_num;
-	size_t				previous_lives_num;
 	ssize_t				last_live;
 }						t_player;
-
-/*
-** Cursor
-*/
-
-/*
-** id             — id number of cursor
-** carry          — special flag
-** op_code        — operator's code that is placed under cursor
-** last_live      — cycle's number when live operator was executed last time
-** till_exec — number of cycles that remains to wait
-** args_types     - types of op's each argument
-**                  before operator execution
-** offset             — address of the next operator to execute at memory
-** step           — number of bytes to shift
-** reg            — registers
-** player         — owner of cursor
-*/
-
-typedef struct			s_cursor
-{
-	uint32_t			id;
-	int					carry;
-	t_op				*op;
-	ssize_t				last_live;
-	int					till_exec;
-	uint8_t				args_types[3];
-	int32_t				offset;
-	uint32_t			step;
-	int32_t				reg[REG_NUMBER];
-	t_player			*player;
-//	struct s_cursor		*next;
-}						t_cursor;
-
-/*
-** Virtual machine
-*/
-
-/*
-** arena              — memory where players are fighting
-** players            — list of players
-** players_num        — number of players
-** last_alive         — pointer to the last player that was assigned as alive
-** cursors            — list of cursors
-** cursors_num        — number of cursors
-** lives_num          — number of executed live operators during of cycle_to_die
-** cycles             — number of cycles that was passed after start
-** cycles_to_die      — game parameter
-** cycles_after_check — number of cycles that was passed after last rules check
-** checks_num         — game parameter
-** vs                 — visualizer
-** dump_cycle         — cycle's number after which dump of arena will be created
-** dump_print_mode    — print mode of dump (32/64 bytes per line)
-** show_cycle         — number of cycles after which arena will be shown
-** show_print_mode    — print mode of show (32/64 bytes per line)
-** display_aff        — flag that reports display output of aff operator or not
-** log                — number that reports about log level.
-**                      If log is assigned as -1, it means that log doesn't
-**                      display.
-*/
 
 typedef struct			s_vm
 {
@@ -171,6 +109,10 @@ typedef struct			s_vm
 	t_opt 				opt;
 }						t_vm;
 
+typedef struct s_cursor t_cursor;
+
+typedef int32_t		(*t_arg_handler)(t_cursor *cursor, int mode);
+
 typedef struct	s_op
 {
 	char		*name;
@@ -181,19 +123,62 @@ typedef struct	s_op
 	int			modify_carry;
 	uint8_t		t_dir_size;
 	uint32_t	cycles;
-	void		(*func)(t_vm *, t_cursor *);
+	void		(*func)(t_cursor *);
 
 }				t_op;
 
-static t_op		g_op[16] = {
+struct			s_cursor
+{
+	t_vm				*vm;
+	uint32_t			id;
+	int					carry;
+	t_op				*op;
+	ssize_t				last_live;
+	int					till_exec;
+	uint8_t				args_types[3];
+	int32_t				offset;
+	uint32_t			step;
+	int32_t				reg[REG_NUMBER];
+	t_player			*player;
+};
+
+int32_t			crw_treg(t_cursor *cursor, int mode);
+int32_t			crw_tdir(t_cursor *cursor, int mode);
+int32_t			crw_tind(t_cursor *cursor, int mode);
+
+static t_arg_handler	g_arg_hands[] = {
+		crw_treg,
+		crw_tdir,
+		[3] = crw_tind
+};
+
+
+void			op_live(t_cursor *custor);
+void			op_ld(t_cursor *custor);
+void			op_st(t_cursor *custor);
+void			op_add(t_cursor *custor);
+void			op_sub(t_cursor *custor);
+void			op_and(t_cursor *custor);
+void			op_or(t_cursor *custor);
+void			op_xor(t_cursor *custor);
+void			op_zjmp(t_cursor *custor);
+void			op_ldi(t_cursor *custor);
+void			op_sti(t_cursor *custor);
+void			op_fork(t_cursor *custor);
+void			op_lld(t_cursor *custor);
+void			op_lldi(t_cursor *custor);
+void			op_lfork(t_cursor *custor);
+void			op_aff(t_cursor *custor);
+
+static t_op		g_op[17] = {
 		[0x01] =
 		{
 				.name = "live",
 				.code = 0x01,
 				.args_num = 1,
-				.args_types_code = false,
+				.args_types_code = 0,
 				.args_types = {T_DIR, 0, 0},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 4,
 				.cycles = 10,
 				.func = &op_live
@@ -202,9 +187,9 @@ static t_op		g_op[16] = {
 				.name = "ld",
 				.code = 0x02,
 				.args_num = 2,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_DIR | T_IND, T_REG, 0},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 5,
 				.func = &op_ld
@@ -213,9 +198,9 @@ static t_op		g_op[16] = {
 				.name = "st",
 				.code = 0x03,
 				.args_num = 2,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG, T_REG | T_IND, 0},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 4,
 				.cycles = 5,
 				.func = &op_st
@@ -224,9 +209,9 @@ static t_op		g_op[16] = {
 				.name = "add",
 				.code = 0x04,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG, T_REG, T_REG},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 10,
 				.func = &op_add
@@ -235,9 +220,9 @@ static t_op		g_op[16] = {
 				.name = "sub",
 				.code = 0x05,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG, T_REG, T_REG},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 10,
 				.func = &op_sub
@@ -246,9 +231,9 @@ static t_op		g_op[16] = {
 				.name = "and",
 				.code = 0x06,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 6,
 				.func = &op_and
@@ -257,9 +242,9 @@ static t_op		g_op[16] = {
 				.name = "or",
 				.code = 0x07,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 6,
 				.func = &op_or
@@ -268,9 +253,9 @@ static t_op		g_op[16] = {
 				.name = "xor",
 				.code = 0x08,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG | T_DIR | T_IND, T_REG | T_DIR | T_IND, T_REG},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 6,
 				.func = &op_xor
@@ -279,9 +264,9 @@ static t_op		g_op[16] = {
 				.name = "zjmp",
 				.code = 0x09,
 				.args_num = 1,
-				.args_types_code = false,
+				.args_types_code = 0,
 				.args_types = {T_DIR, 0, 0},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 2,
 				.cycles = 20,
 				.func = &op_zjmp
@@ -290,9 +275,9 @@ static t_op		g_op[16] = {
 				.name = "ldi",
 				.code = 0x0A,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG | T_DIR | T_IND, T_REG | T_DIR, T_REG},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 2,
 				.cycles = 25,
 				.func = &op_ldi
@@ -301,9 +286,9 @@ static t_op		g_op[16] = {
 				.name = "sti",
 				.code = 0x0B,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG, T_REG | T_DIR | T_IND, T_REG | T_DIR},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 2,
 				.cycles = 25,
 				.func = &op_sti
@@ -312,9 +297,9 @@ static t_op		g_op[16] = {
 				.name = "fork",
 				.code = 0x0C,
 				.args_num = 1,
-				.args_types_code = false,
+				.args_types_code = 0,
 				.args_types = {T_DIR, 0, 0},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 2,
 				.cycles = 800,
 				.func = &op_fork
@@ -323,9 +308,9 @@ static t_op		g_op[16] = {
 				.name = "lld",
 				.code = 0x0D,
 				.args_num = 2,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_DIR | T_IND, T_REG, 0},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 4,
 				.cycles = 10,
 				.func = &op_lld
@@ -334,9 +319,9 @@ static t_op		g_op[16] = {
 				.name = "lldi",
 				.code = 0x0E,
 				.args_num = 3,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG | T_DIR | T_IND, T_REG | T_DIR, T_REG},
-				.modify_carry = true,
+				.modify_carry = 1,
 				.t_dir_size = 2,
 				.cycles = 50,
 				.func = &op_lldi
@@ -345,9 +330,9 @@ static t_op		g_op[16] = {
 				.name = "lfork",
 				.code = 0x0F,
 				.args_num = 1,
-				.args_types_code = false,
+				.args_types_code = 0,
 				.args_types = {T_DIR, 0, 0},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 2,
 				.cycles = 1000,
 				.func = &op_lfork
@@ -356,103 +341,42 @@ static t_op		g_op[16] = {
 				.name = "aff",
 				.code = 0x10,
 				.args_num = 1,
-				.args_types_code = true,
+				.args_types_code = 1,
 				.args_types = {T_REG, 0, 0},
-				.modify_carry = false,
+				.modify_carry = 0,
 				.t_dir_size = 4,
 				.cycles = 2,
 				.func = &op_aff
 		}
 };
 
-/*
-** Init
-*/
 
-t_player				*init_player(int id);
+int32_t		calc_addr(int32_t addr);
 
-t_cursor				*init_cursor(t_player *player, int32_t pc);
+int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size);
 
-t_vm					*init_vm(void);
-
-void					init_arena(t_vm *vm);
-
-/*
-** Parse
-*/
-
-void					parse_corewar_args(int argc, char **argv, t_vm *vm);
-
-void					parse_vs_flag(int *argc, char ***argv, t_vm *vm);
-
-void					parse_dump_flag(int *argc, char ***argv, t_vm *vm);
-
-void					parse_show_flag(int *argc, char ***argv, t_vm *vm);
-
-void					parse_aff_flag(int *argc, char ***argv, t_vm *vm);
-
-void					parse_log_flag(int *argc, char ***argv, t_vm *vm);
-t_lst					champs_validation(t_lst *corewar_args);
+void		int32_to_bytecode(uint8_t *arena, int32_t addr, int32_t value,
+							  int32_t size);
+int32_t		get_op_arg(t_cursor *cursor, uint8_t index, int mod);
+uint32_t	calc_step(t_cursor *cursor);
+t_vm					*crw_init_game(t_vm *vm);
+t_player		*create_player(int id);
+void			cycles_to_die_check(t_vm *vm);
+void			crw_exec(t_vm *vm);
+void			init_cursors(t_vm *vm);
+t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm);
+t_cursor		*clone_cursor(t_cursor *cursor);
+void				move_cursor(t_cursor *cursor);
+uint32_t			step_size(uint8_t arg_type, t_op *op);
+int					is_args_valid(t_cursor *cursor);
+int 				is_arg_types_valid(t_cursor *cursor); //TODO check
+void				parse_types_code(t_cursor *cursor);
 t_player				*parse_champion(char *filename, int num);
-
-/*
-** Cursor
-*/
-
-void					set_cursors(t_vm *vm);
-
-void					add_cursor(t_cursor **list, t_cursor *new);
-
-/*
-** Execute
-*/
-
-void					exec(t_vm *vm);
-
-void					exec_cycle(t_vm *vm);
-
-/*
-** Execute Utils
-*/
-
-void					update_op_code(t_vm *vm, t_cursor *current);
-
-void					move_cursor(t_vm *vm, t_cursor *cursor);
-
-void					free_vm(t_vm **vm);
-
-/*
-** Utils
-*/
-
 int32_t					calc_addr(int32_t addr);
-
-int8_t					get_byte(t_vm *vm, int32_t pc, int32_t step);
-
+int8_t					get_byte(t_vm *vm, int32_t offset);
 void					cycles_to_die_check(t_vm *vm);
-
-/*
-** Print
-*/
-
-void					print_intro(t_player **players, int32_t players_num);
-
-void					print_last_alive(t_vm *vm);
-
-void					print_help();
-
-void					print_arena(uint8_t *arena, int print_mode);
-
-/*
-** Log
-*/
-
-void					log_cycle(ssize_t cycle);
-
-void					log_pc_movements(uint8_t *arena, t_cursor *cursor);
-
-void					log_cursor_death(t_vm *vm, t_cursor *cursor);
-
-void					log_cycles_to_die(ssize_t cycles_to_die);
+t_lst				champ_validation(t_lst *corewar_args);
+int8_t 		check_player_filename(char *filename);
+t_lst		*parse_options(int ac, char **av, t_vm *vm);
 
 # endif

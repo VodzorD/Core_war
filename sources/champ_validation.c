@@ -16,7 +16,7 @@ static uint32_t	validate_num(uint8_t **bytes, size_t size);
 static char		*validate_str(uint8_t **bytes, size_t len);
 static uint8_t	*validate_code(int fd, uint32_t prog_size);
 
-t_lst			champs_validation(t_lst *corewar_args)
+t_lst			champ_validation(t_lst *corewar_args)
 {
 	t_player	*plr;
 	t_pair		*pair;
@@ -30,11 +30,11 @@ t_lst			champs_validation(t_lst *corewar_args)
 		plr = check_plr((size_t) pair->key, pair->value, sizeof(header_t));
 		if (plr)
 			lst_prepend(&plrs, plr);
-		else
-		{
-			lst_free(plrs, )
-			return NULL;
-		}
+//		else
+//		{
+//			lst_free(plrs, )
+//			return NULL;
+//		}
 	}
 	return (plrs);
 }
@@ -54,7 +54,7 @@ static t_player	*check_plr(size_t id, char *plr_filename, size_t hdr_size)
 		ft_error("Cannot open file", -1);
 	if (read(fd, hdr, hdr_size) != hdr_size)
 		ft_error("reading error", -1);
-	if (validate_num(&hdr, sizeof(COREWAR_EXEC_MAGIC))) != COREWAR_EXEC_MAGIC)
+	if (validate_num(&hdr, sizeof(COREWAR_EXEC_MAGIC)) != COREWAR_EXEC_MAGIC)
 		ft_error("MAGIC doesn't exist!", -1);
 	if (!(plr->name = validate_str(&hdr, PROG_NAME_LENGTH)))
 		ft_error("Champ name error!", -1);

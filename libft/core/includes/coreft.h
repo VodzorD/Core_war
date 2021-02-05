@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <fcntl.h>
+#include <stdint.h>
 
 # define BUFF_SIZE 512
 # define BASE_LOWER "0123456789abcdefghijklmnopqrstuvwxyz"

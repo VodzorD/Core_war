@@ -13,7 +13,7 @@
 #ifndef LS_FT_GETOPT_H
 # define LS_FT_GETOPT_H
 
-# define FLAGS		"dn:"
+# define FLAGS		"d::n:"
 
 # define NO_ARG		0
 # define REQ_ARG	1

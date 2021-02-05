@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
 static int		find_val(t_input *input, t_lopt *o, t_opt **opt)
 {
