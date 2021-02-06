@@ -378,5 +378,6 @@ void					cycles_to_die_check(t_vm *vm);
 t_lst				champ_validation(t_lst *corewar_args);
 int8_t 		check_player_filename(char *filename);
 t_lst		*parse_options(int ac, char **av, t_vm *vm);
+t_lst 		*collect_args(t_vm **vm, t_input inp, t_qu *queue);
 
 # endif

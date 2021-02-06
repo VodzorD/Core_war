@@ -41,10 +41,9 @@ int32_t		count_plrs(char **av)
 t_lst		*parse_options(int ac, char **av, t_vm *vm)
 {
 	char **tmp;
-	t_qu *queue;
-	int i = 0;
+	t_lst *args;
 
-	queue = qu_new();
+	int i = 0;
 	vm = ft_memalloc(sizeof(t_vm));
 	tmp = av;
 	while (*tmp)
@@ -55,20 +54,20 @@ t_lst		*parse_options(int ac, char **av, t_vm *vm)
 	}
 	if (vm->players_num > MAX_PLAYERS)
 		exit(EXIT_FAILURE);
-	queue = collect_flags(&vm, (t_input ) {ac, av});
-	if (!queue)
-		printf("Empty queue");
-	while (i < vm->players_num)
-	{
-		if (vm->players[i])
-			printf("Plr num: %d, Plr name: %s\n",i + 1, vm->players[i]);
-		if (queue->next && !vm->players[i])
-		{
-			vm->players[i] = queue->content;
-			printf("Plr num: %d, Plr name: %s\n",i + 1, vm->players[i]);
-			queue = queue->next;
-		}
+	args = collect_args(&vm, (t_input ) {ac, av}, qu_new());
+//	if (!queue)
+//		printf("Empty queue");
+//	while (i < vm->players_num)
+//	{
+//		if (vm->players[i])
+//			printf("Plr num: %d, Plr name: %s\n",i + 1, vm->players[i]);
+//		if (queue->next && !vm->players[i])
+//		{
+//			vm->players[i] = queue->content;
+//			printf("Plr num: %d, Plr name: %s\n",i + 1, vm->players[i]);
+//			queue = queue->next;
+//		}
 		i++;
 	}
-	return args;
+	return (args);
 }
