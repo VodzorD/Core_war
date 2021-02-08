@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <fcntl.h>
+#include <stdint.h>
 
 # define BUFF_SIZE 512
 # define BASE_LOWER "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -161,5 +162,6 @@ char				*ft_sitoa_base_static(intmax_t number, int base,
 char				*ft_uitoa_base_static(uintmax_t number, int base,
 											int uppercase);
 char				*ft_ftoa_static(double number, unsigned int precision);
+int 				ft_is_only_digits(const char *str);
 
 #endif

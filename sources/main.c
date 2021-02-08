@@ -1,18 +1,18 @@
 #include "../includes/corewar.h"
 #include <stdio.h>
 
+
+inline int32_t		calc_addr(int32_t addr)
+{
+	return  ((addr %= MEM_SIZE) < 0 ? addr + MEM_SIZE : addr);
+}
+
 t_lst		*read_prog_args(int ac, char **av)
 {
 	t_lst	*corewar_args;
 	t_pair	*pair;
 
 	return (corewar_args);
-}
-
-
-inline int32_t		calc_addr(int32_t addr)
-{
-	return  ((addr %= MEM_SIZE) < 0 ? addr + MEM_SIZE : addr);
 }
 
 inline int8_t	get_byte(t_vm *vm, int32_t addr)

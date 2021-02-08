@@ -5,9 +5,10 @@ set(CMAKE_C_STANDARD 99)
 
 
 include_directories(includes)
+include_directories(libft/includes)
 include_directories(libft/collections/includes)
 include_directories(libft/core/includes)
-include_directories(libft/includes)
+include_directories(libft/getopt/includes)
 include_directories(libft/printf/includes)
 include_directories(libft/string/includes)
 
@@ -129,6 +130,7 @@ add_executable(Corewar
 		libft/core/src/ft_strclr.c
 		libft/core/src/ft_strcmp.c
 		libft/core/src/ft_strcpy.c
+		libft/core/src/ft_strcspn.c
 		libft/core/src/ft_strdel.c
 		libft/core/src/ft_strdup.c
 		libft/core/src/ft_strequ.c
@@ -160,6 +162,10 @@ add_executable(Corewar
 		libft/core/src/ft_uilen.c
 		libft/core/src/ft_uitoa_base.c
 		libft/core/src/ft_uitoa_base_static.c
+		libft/getopt/includes/ft_getopt.h
+		sources/collect_flags.c
+		libft/getopt/src/ft_getopt.c
+		libft/getopt/src/ft_getopt_long.c
 		libft/includes/libft.h
 		libft/printf/includes/ft_printf.h
 		libft/printf/src/specs/apply_specs.c

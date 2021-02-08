@@ -39,7 +39,7 @@ typedef struct			s_corewar_arguments
 {
 	int 				dump;
 	int 				players_count;
-	t_lst 				players;
+	t_lst 				*players;
 }						t_arg;
 
 static uint8_t			g_arg_code[3] = {
@@ -81,6 +81,7 @@ typedef struct			s_vm
 {
 	uint8_t				arena[MEM_SIZE];
 	t_lst				players;
+	int32_t				players_num;
 	t_player			*last_alive;
 	t_qu 				cursors;
 //	size_t				cursors_num;

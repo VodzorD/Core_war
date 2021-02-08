@@ -17,5 +17,6 @@
 # include "../collections/includes/collections.h"
 # include "../printf/includes/ft_printf.h"
 # include "../string/includes/ft_strings.h"
+# include "ft_getopt.h"
 
 #endif
