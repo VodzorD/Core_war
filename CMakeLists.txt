@@ -13,7 +13,6 @@ include_directories(libft/string/includes)
 
 add_executable(Corewar
 		sources/champ_validation.c
-		sources/crw_args_handler.c
 		sources/crw_dying_process.c
 		sources/crw_execute.c
 		sources/crw_init_game.c

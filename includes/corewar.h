@@ -74,35 +74,8 @@ typedef struct			s_player
 	int32_t				code_size;
 	uint8_t				*code;
 	size_t				current_lives_num;
-	size_t				previous_lives_num;
 	ssize_t				last_live;
 }						t_player;
-/*
-** Virtual machine
-*/
-
-/*
-** arena              — memory where players are fighting
-** players            — list of players
-** players_num        — number of players
-** last_alive         — pointer to the last player that was assigned as alive
-** cursors            — list of cursors
-** cursors_num        — number of cursors
-** lives_num          — number of executed live operators during of cycle_to_die
-** cycles             — number of cycles that was passed after start
-** cycles_to_die      — game parameter
-** cycles_after_check — number of cycles that was passed after last rules check
-** checks_num         — game parameter
-** vs                 — visualizer
-** dump_cycle         — cycle's number after which dump of arena will be created
-** dump_print_mode    — print mode of dump (32/64 bytes per line)
-** show_cycle         — number of cycles after which arena will be shown
-** show_print_mode    — print mode of show (32/64 bytes per line)
-** display_aff        — flag that reports display output of aff operator or not
-** log                — number that reports about log level.
-**                      If log is assigned as -1, it means that log doesn't
-**                      display.
-*/
 
 typedef struct			s_vm
 {
@@ -387,5 +360,9 @@ t_player				*parse_champion(char *filename, int num);
 int32_t					calc_addr(int32_t addr);
 int8_t					get_byte(t_vm *vm, int32_t offset);
 void					cycles_to_die_check(t_vm *vm);
+t_lst				champ_validation(t_lst *corewar_args);
+int8_t 		check_player_filename(char *filename);
+t_lst		*parse_options(int ac, char **av, t_vm *vm);
+t_lst 		*collect_args(t_vm **vm, t_input inp, t_qu *queue);
 
 # endif
