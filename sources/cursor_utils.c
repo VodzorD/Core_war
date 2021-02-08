@@ -1,20 +1,8 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   cursor_utils.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 18:48:38 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/20 20:02:35 by cshinoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 # include "../includes/corewar.h"
 
 void	move_cursor(t_cursor *cursor)
 {
-	cursor->offset = (cursor ->offset + cursor->step) % MEM_SIZE;
+	cursor->offset = calc_addr(cursor->offset + cursor->step);
 	cursor->step = 0;
 	ft_bzero(cursor->args_types, 3);
 }

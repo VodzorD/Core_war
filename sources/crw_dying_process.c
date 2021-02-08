@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   crw_dying_process.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/19 18:36:52 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/03 15:00:13 by cshinoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 # include "../includes/corewar.h"
 
 static int	is_died(t_cursor *cursor)
@@ -28,7 +16,7 @@ static void		delete_died_cursors(t_vm *vm)
 	qu_itr_load(&vm->cursors, &itr, (t_fprdct)&is_died);
 	while (itr_has_more(&itr)) {
 		cursor = itr_next(&itr);
-		ft_printf("cursor dead: id-%u\tplayer-%u\n", cursor->id, cursor->player->id);
+//		ft_printf("cursor dead: id-%u\tplayer-%u\n", cursor->id, cursor->player->id);
 		free(qu_rm_data(&vm->cursors, NULL, cursor)); //TODO
 	}
 	itr_clear(&itr);

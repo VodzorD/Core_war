@@ -10,5 +10,5 @@ void				op_fork(t_cursor *cursor)
 	new = clone_cursor(cursor);
 	new->offset = calc_addr(cursor->offset + get_op_arg(cursor, 0, 1) % IDX_MOD);
 	qu_push_head(&cursor->vm->cursors, new);
-	ft_printf("create cursor %u, pl%u, offset%u\n", new->id, new->player->id, new->offset);
+//	ft_printf("create cursor %u, pl%u, offset%u\n", new->id, new->player->id, new->offset);
 }

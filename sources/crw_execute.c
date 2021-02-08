@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   crw_execute.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 16:43:07 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/05 19:41:01 by cshinoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/corewar.h"
 
 static int		update_op(t_cursor *cursor)
@@ -24,6 +12,7 @@ static int		update_op(t_cursor *cursor)
 		{
 			cursor->op = &g_op[code];
 			cursor->till_exec = cursor->op->cycles;
+//			ft_printf("Set op %s cursor %u\n", cursor->op->name, cursor->id);
 		} else
 			cursor->op = NULL;
 	}

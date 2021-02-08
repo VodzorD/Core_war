@@ -1,26 +1,14 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 15:39:09 by wscallop          #+#    #+#             */
-/*   Updated: 2021/01/21 18:17:56 by cshinoha         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../includes/corewar.h"
 #include <stdio.h>
 
 inline int32_t		calc_addr(int32_t addr)
 {
-	return (addr + MEM_SIZE) % MEM_SIZE;
+	return  ((addr %= MEM_SIZE) < 0 ? addr + MEM_SIZE : addr);
 }
 
 inline int8_t	get_byte(t_vm *vm, int32_t addr)
 {
-	return (vm->arena[addr % MEM_SIZE]);
+	return (vm->arena[calc_addr(addr)]);
 }
 
 static int      valid_flags(char **av, int ac)
