@@ -102,11 +102,13 @@ t_pair					*create_pair(t_pntr left, t_pntr right)
 
 t_vm					*crw_init_game(t_vm *vm)
 {
+//	char *champs[MAX_PLAYERS];
+//	champs[0] = ft_strdup("fiars.cor");
+//	champs[1] = ft_strdup("second.cor");
+//	lst_append(&vm->arg.players, create_pair((t_pntr) 2, ft_strdup("second.cor")));
+//	lst_append(&vm->arg.players, create_pair((t_pntr) 1, ft_strdup("first.cor")));
 
-
-	lst_append(&vm->arg.players, create_pair((t_pntr) 2, ft_strdup("second.cor")));
-	lst_append(&vm->arg.players, create_pair((t_pntr) 1, ft_strdup("first.cor")));
-	champ_validation(&vm->arg.players, &vm->players);
+//	champ_validation(&vm->arg.players, &vm->players);
 	init_arena(vm);
 	init_cursors(vm);
 

@@ -14,12 +14,11 @@
 
 t_node			*ft_node_prepend(t_node **begin_list, t_node *node)
 {
-	t_node		*first;
-	first->next = *begin_list;
+	node->next = *begin_list;
 	if (*begin_list)
-		(*begin_list)->prev = first;
-	first->prev = NULL;
-	*begin_list = first;
+		(*begin_list)->prev = node;
+	node->prev = NULL;
+	*begin_list = node;
 	return (*begin_list);
 }
 

@@ -12,37 +12,23 @@
 //	return arg;
 //}
 
-int32_t		count_plrs(char **av)
+t_args 		*parse_options(int ac, char **av, t_args *args)
 {
-	int32_t	plrs_num;
+//	char **tmp;
+//	t_args *args;
 
-	plrs_num = 0;
-	while (*av)
-	{
-		if (ft_strstr(*av, ".cor") && !ft_strcmp(*av, ".cor"))
-			plrs_num++;
-		*av++;
-	}
-	return (plrs_num);
-}
+//	int i = 0;
+//	vm = ft_memalloc(sizeof(t_vm));
+//	tmp = av;
+//	while (*tmp)
+//	{
+//		if (ft_strstr(*tmp, ".cor") && ft_strcmp(*tmp, ".cor") != 0)
+//			vm->players_num++;
+//		tmp++;
+//	}
+	collect_args((t_input) {ac, av}, args);
+//	while (i < args->count_players)
 
-t_lst		*parse_options(int ac, char **av, t_vm *vm)
-{
-	char **tmp;
-	t_lst *args;
-
-	int i = 0;
-	vm = ft_memalloc(sizeof(t_vm));
-	tmp = av;
-	while (*tmp)
-	{
-		if (ft_strstr(*tmp, ".cor") && ft_strcmp(*tmp, ".cor") != 0)
-			vm->players_num++;
-		tmp++;
-	}
-	if (vm->players_num > MAX_PLAYERS)
-		exit(EXIT_FAILURE);
-	args = collect_args(&vm, (t_input ) {ac, av}, qu_new());
 //	if (!queue)
 //		printf("Empty queue");
 //	while (i < vm->players_num)
@@ -55,7 +41,7 @@ t_lst		*parse_options(int ac, char **av, t_vm *vm)
 //			printf("Plr num: %d, Plr name: %s\n",i + 1, vm->players[i]);
 //			queue = queue->next;
 //		}
-		i++;
-	}
+//		i++;
+//	}
 	return (args);
 }

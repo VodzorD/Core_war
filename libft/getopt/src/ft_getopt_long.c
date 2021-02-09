@@ -45,7 +45,7 @@ static int		find_matches(t_lopt *o, t_lopt **match, t_input input, int arg)
 
 	num_matches = 0;
 	curr_arg = input.av[arg] + 2;
-	arg_name_length = ft_strcspn(curr_arg, "=");
+	arg_name_length = ft_strindexof(curr_arg, '=');
 	while (o->name)
 	{
 		if (ft_strncmp(o->name, curr_arg, arg_name_length) == 0
@@ -87,12 +87,12 @@ static int		get_lopt(t_input input, t_opt *opt, t_lopt *lopt, int *longind)
 	return (retval);
 }
 
-int				ft_getopt_long(t_input data, t_opt **opt,
+int				ft_getopt_long(t_input data, t_opt *opt,
 							const t_lopt *lopt, int *lind)
 {
 	int			ret;
 
-	*opt = set_start_opt_val(*opt);
-	ret = get_lopt(data, *opt, lopt, lind);
+	opt = set_start_opt_val(opt);
+	ret = get_lopt(data, opt, lopt, lind);
 	return (ret);
 }

@@ -13,6 +13,7 @@ include_directories(libft/printf/includes)
 include_directories(libft/string/includes)
 
 add_executable(Corewar
+		sources/crw_args_handler.c
 		sources/champ_validation.c
 		sources/crw_dying_process.c
 		sources/crw_execute.c
@@ -62,6 +63,7 @@ add_executable(Corewar
 		libft/collections/src/queue_peek.c
 		libft/collections/src/queue_push_pop.c
 		libft/core/includes/coreft.h
+		libft/core/src/ft_is_number.c
 		libft/core/src/ft_abs.c
 		libft/core/src/ft_any.c
 		libft/core/src/ft_atoi.c

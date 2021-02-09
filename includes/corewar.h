@@ -27,20 +27,21 @@
 ** Arg's type — Arg's code
 */
 
-typedef struct			s_opt
-{
-	int					out;
-	int					color;
-	int					req;
-	int					pth;
-}						t_opt;
+//typedef struct			s_opt
+//{
+//	int					out;
+//	int					color;
+//	int					req;
+//	int					pth;
+//}						t_opt;
 
-typedef struct			s_corewar_arguments
+typedef struct			s_crw_arguments
 {
-	int 				dump;
-	int 				players_count;
-	t_lst 				*players;
-}						t_arg;
+	int                 dump_print_mode;
+	int 				dump_cycle;
+    int                 count_players;
+	char 				*players[MAX_PLAYERS];
+}						t_args;
 
 static uint8_t			g_arg_code[3] = {
 	T_REG,
@@ -90,7 +91,7 @@ typedef struct			s_vm
 	ssize_t				cycles_to_die;
 	ssize_t				cycles_after_check;
 	size_t				checks_num;
-	t_arg				arg;
+	t_args				arg;
 	t_opt 				opt;
 }						t_vm;
 
@@ -336,7 +337,7 @@ static t_op		g_op[17] = {
 };
 
 
-int				champ_validation(t_lst *corewar_args, t_lst *plrs);
+int				champ_validation(t_args *args, t_lst *plrs);
 int32_t		calc_addr(int32_t addr);
 
 int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size);
@@ -361,9 +362,8 @@ t_player				*parse_champion(char *filename, int num);
 int32_t					calc_addr(int32_t addr);
 int8_t					get_byte(t_vm *vm, int32_t offset);
 void					cycles_to_die_check(t_vm *vm);
-t_lst				champ_validation(t_lst *corewar_args);
 int8_t 		check_player_filename(char *filename);
-t_lst		*parse_options(int ac, char **av, t_vm *vm);
-t_lst 		*collect_args(t_vm **vm, t_input inp, t_qu *queue);
+t_args 		*parse_options(int ac, char **av, t_args *args);
+t_args 		*collect_args(t_input inp, t_args *args);
 
 # endif

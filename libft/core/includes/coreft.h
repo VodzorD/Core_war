@@ -58,6 +58,7 @@ typedef struct		s_pair
 	t_pntr			value;
 }					t_pair;
 
+int                 ft_is_number(const char *str);
 t_pntr				ft_node_del(t_node *node, void (*del)(void *));
 int					ft_free(void *p);
 void				ft_error(char *mes, int code);

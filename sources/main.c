@@ -49,14 +49,12 @@ t_vm		*create_vm(void)
 int     main(int ac, char **av)
 {
 	t_vm	*vm;
-	t_lst	*corewar_args;
-	t_lst	*args;
 
 	printf("%d\n", valid_flags(av, ac));
 	vm = create_vm();
-	args = parse_options(ac, av, vm);
+	parse_options(--ac, ++av, &vm->arg);
+	champ_validation(&vm->arg, &vm->players);
 //	vm->players = champ_validation(corewar_args);
-
     crw_init_game(vm);
 	crw_exec(vm);
 }

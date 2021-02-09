@@ -5,27 +5,26 @@ static uint32_t	validate_num(uint8_t **bytes, size_t size);
 static char		*validate_str(uint8_t **bytes, size_t len);
 static uint8_t	*validate_code(int fd, uint32_t prog_size);
 
-t_lst			champ_validation(t_lst *corewar_args)
+int			champ_validation(t_args *args, t_lst *plrs)
 {
 	t_player	*plr;
-	t_pair		*pair;
-	t_lst		plrs;
 	t_itr		*cross;
+	int			i;
 
-	pair = NULL;
-	cross = lst_itr_load(corewar_args, NULL, NULL);
-	while ((pair = itr_next(cross)))
+	i = 0;
+	while (i < args->count_players)
 	{
-		plr = check_plr((size_t) pair->key, pair->value, sizeof(header_t));
+		plr = check_plr(i + 1, args->players[i], sizeof(header_t));
 		if (plr)
-			lst_prepend(&plrs, plr);
+			lst_prepend(plrs, plr);
 //		else
 //		{
-//			lst_free(plrs, )
+//			lst_clear(plrs, )
 //			return NULL;
 //		}
+		i++;
 	}
-	return (plrs);
+	return (1);
 }
 
 static t_player	*check_plr(size_t id, char *plr_filename, size_t hdr_size)
@@ -53,7 +52,7 @@ static t_player	*check_plr(size_t id, char *plr_filename, size_t hdr_size)
 				ft_error("Champ comment error!", -1);
 	if (!(plr->code = validate_code(fd, plr->code_size)))
 		ft_error("Code doesn't match code size", -1);
-	free(hdr);
+//	free(hdr); TODO SEGABORT
 	return (plr);
 }
 static uint8_t	*validate_code(int fd, uint32_t prog_size)

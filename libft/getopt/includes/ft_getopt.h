@@ -53,7 +53,7 @@ typedef struct			s_flag
 
 t_opt					*set_start_opt_val(t_opt *opt);
 int						ft_getopt(t_input inpt, t_opt *opt);
-int						ft_getopt_long(t_input data, t_opt **opt,
+int						ft_getopt_long(t_input data, t_opt *opt,
 							const t_lopt *lopt, int *lind);
 
 #endif

@@ -105,7 +105,6 @@ SRCNAME		= printf/src/ft_printf.c				\
 			  core/src/ft_islower.c				\
 			  core/src/ft_isspace.c				\
 			  core/src/ft_isseparator.c			\
-			  core/src/ft_is_only_digits.c		\
 			  core/src/ft_cntwords.c			\
 			  core/src/ft_nblen.c				\
 			  core/src/ft_swap.c				\
