@@ -95,6 +95,7 @@ char				*ft_strchr(const char *s, int c);
 long long			ft_strindexof(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
 int					ft_strstartwith(char *ref, char *stack);
+int					ft_strendwith(char *ref, char *stack);
 char				*ft_strstr(const char *haystack, const char *needle);
 char				*ft_strnstr(const char *haystack,
 								const char *needle, size_t len);

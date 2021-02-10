@@ -155,6 +155,7 @@ add_executable(Corewar
 		libft/core/src/ft_strrchr.c
 		libft/core/src/ft_strsplit.c
 		libft/core/src/ft_strstartwith.c
+		libft/core/src/ft_strendwith.c
 		libft/core/src/ft_strstr.c
 		libft/core/src/ft_strsub.c
 		libft/core/src/ft_strtrim.c
@@ -198,4 +199,4 @@ add_executable(Corewar
 		libft/string/includes/string_builder.h
 		libft/string/src/string_builder.c
 		libft/string/src/string_builder_operats.c
-		)
+		sources/crw_utils.c)

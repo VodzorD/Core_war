@@ -87,6 +87,7 @@ void	init_cursors(t_vm *vm)
 		qu_push_head(&vm->cursors, cursor);
 		offset += MEM_SIZE / vm->players.length;
 	}
+	itr_clear(&itr);
 }
 
 t_pair					*create_pair(t_pntr left, t_pntr right)

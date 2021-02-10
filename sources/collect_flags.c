@@ -1,31 +1,22 @@
 #include "corewar.h"
 
-void				invalid_option(t_opt *opt)
-{
-	ft_printf("corewar: illegal option -- \'%s\'\n", opt->optopt);
-	ft_printf("usage: ./corewar [-d nbr_cycles] [[-n number] champion1.co\n");
-	ft_printf("or: [--dump nbr_cycles] ");
-	free(opt);
-	exit(2);
-}
-
 static void	set_dump_flag(t_args *args, t_input *inp, t_opt *o)
 {
 	int 	is_num;
 
 	is_num = ft_is_number(o->optarg);
 	if (!args->dump_print_mode && inp->ac > 1 && is_num &&
-        (!o->optarg && ft_atoi(*(inp->av + 2)) || o->optarg)) //TODO '&&' within '||' [-Wlogical-op-parentheses]
+        (!o->optarg && ft_atoi(inp->av[2]) || o->optarg)) //TODO '&&' within '||' [-Wlogical-op-parentheses]
 	{
         args->dump_cycle = o->optarg ? ft_atoi(o->optarg) :
                            ft_atoi(*(inp->av + o->optind));
 		if (args->dump_cycle < 0)
             args->dump_cycle = -1;
-		if (!ft_strcmp(*(inp->av + 1), "-d"))
+		if (!ft_strcmp(inp->av[1], "-d"))
             args->dump_print_mode = 64;
 		else
             args->dump_print_mode = 32;
-		o->optind =  ft_is_number(*(inp->av + 2)) ? 2 : 1;
+		o->optind =  ft_is_number(inp->av[2]) ? 2 : 1;
 		inp->av += o->optind;
 		inp->ac -= o->optind;
 	}
@@ -39,14 +30,14 @@ static int check_plr_number(t_args *args, t_input *inp, t_opt *o)
 
 	plr_num = ft_atoi(o->optarg);
 	if (ft_is_number(o->optarg) && check_player_filename(
-			*(inp->av + o->optind)) && plr_num < 9)
+			inp->av[o->optind]) && plr_num < 9)
 	{
 		if (!args->players[plr_num - 1])
 			args->players[plr_num -1] = inp->av[o->optind];
 		else
 		{
 			ft_printf("Player %s with the same number\n",
-			 						*(inp->av + o->optind));
+			 						inp->av[o->optind]);
 			return (-1);
 		}
 	}
@@ -61,11 +52,11 @@ static void check_remaining_args(t_input *inp, t_opt *o, t_qu *queue)
 {
 	if (*(inp->av + o->optind))
 	{
-		if (check_player_filename(*(inp->av + o->optind)))
-			qu_push_head(queue, *(inp->av + o->optind));
+		if (check_player_filename(inp->av[o->optind]))
+			qu_push_head(queue, inp->av[o->optind]);
 		else
 			ft_printf("Player %s don't play this game\n",
-			 						*(inp->av + o->optind));
+			 						inp->av[o->optind]);
 	}
 	inp->av += o->optind;
 	inp->ac -= o->optind;
@@ -99,11 +90,25 @@ int32_t		count_plrs(char **av)
 	plrs_num = 0;
 	while (*av)
 	{
-		if (ft_strstr(*av, ".cor") && !ft_strstartwith(".cor", *av)) //TODO create str_end0_with()
+		if (ft_strstr(*av, ".cor") && !ft_strendwith(".cor", *av)) //TODO create str_end0_with()
 			plrs_num++;
 		*av++;
 	}
 	return (plrs_num);
+}
+
+void		fit_players(t_args *args, t_qu *qu) {
+	int		i;
+
+	i = 0;
+	while (i < args->count_players)
+	{
+		if (!args->players[i])
+			args->players[i] = qu_pop_tail(qu);
+		i++;
+	}
+	if (!qu_is_empty(qu))
+		ft_error("Ошибочка", -1);
 }
 
 t_args 		*collect_args(t_input inp, t_args *args)
@@ -111,7 +116,6 @@ t_args 		*collect_args(t_input inp, t_args *args)
 	static t_opt	o;
 	int 	rez;
 	static  t_qu qu;
-	int			i;
 
 	if ((args->count_players = count_plrs(inp.av)) > MAX_PLAYERS)
 		ft_error("Ошибочка", -1);
@@ -128,17 +132,6 @@ t_args 		*collect_args(t_input inp, t_args *args)
 			check_remaining_args(&inp, &o, &qu);
 		o.optind = 1;
 	}
-	i = 0;
-	while (i < args->count_players)
-	{
-		if (!args->players[i])
-			args->players[i] = qu_pop_tail(&qu);
-		i++;
-	}
-	if (!qu_is_empty(&qu))
-		ft_error("Ошибочка", -1);
-
-
-	//TODO вернуть список с игроками в правильном порядке
+	fit_players(args, &qu);
 	return (args);
 }

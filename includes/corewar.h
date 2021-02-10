@@ -85,14 +85,12 @@ typedef struct			s_vm
 	int32_t				players_num;
 	t_player			*last_alive;
 	t_qu 				cursors;
-//	size_t				cursors_num;
 	size_t				lives_num;
 	ssize_t				cycles;
 	ssize_t				cycles_to_die;
 	ssize_t				cycles_after_check;
 	size_t				checks_num;
 	t_args				arg;
-	t_opt 				opt;
 }						t_vm;
 
 typedef struct s_cursor t_cursor;
@@ -337,6 +335,7 @@ static t_op		g_op[17] = {
 };
 
 
+void				invalid_option(t_opt *opt);
 int				champ_validation(t_args *args, t_lst *plrs);
 int32_t		calc_addr(int32_t addr);
 

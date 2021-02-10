@@ -29,8 +29,8 @@ void	print_state(t_vm *vm)
 	while (node)
 	{
 		cursor = node->data;
-		ft_printf("CUR id-%u till-%u offset-%u last_live-%u step-%u carry-%s op-%s\n",
-			cursor->id, cursor->till_exec, cursor->offset, cursor->last_live, cursor->step, cursor->carry ? "TRUE" : "false", cursor->op ? cursor->op->name : "____");
+//		ft_printf("CUR id-%u till-%u offset-%u last_live-%u step-%u carry-%s op-%s\n",
+//			cursor->id, cursor->till_exec, cursor->offset, cursor->last_live, cursor->step, cursor->carry ? "TRUE" : "false", cursor->op ? cursor->op->name : "____");
 		node = node->next;
 	}
 }
@@ -58,7 +58,7 @@ static void	exec_op(t_cursor *cursor)
 		if (is_arg_types_valid(cursor) && is_args_valid(cursor))
 		{
 //			if (cursor->vm->cycles > 8000)
-			ft_printf("cycles: %u curs: %u func: %s\n", cursor->vm->cycles, cursor->id, cursor->op->name);
+//			ft_printf("cycles: %u curs: %u func: %s\n", cursor->vm->cycles, cursor->id, cursor->op->name);
 			cursor->op->func(cursor);
 		}
 		else
