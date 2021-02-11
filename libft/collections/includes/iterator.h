@@ -29,4 +29,5 @@ t_pntr					itr_next(t_itr *iterator);
 int						itr_has_more(t_itr *itr);
 void					itr_foreach(t_itr *iter, t_fmap for_func);
 
+
 #endif

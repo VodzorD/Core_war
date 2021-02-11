@@ -226,6 +226,7 @@ add_executable(Corewar
 		libft/collections/src/hm_init_free_clear.c
 		libft/collections/src/hm_lookup_remove_insert.c
 		libft/collections/src/iterator.c
+		libft/collections/src/itr_foreach.c
 		libft/collections/src/list.c
 		libft/collections/src/list_conv.c
 		libft/collections/src/list_get.c
