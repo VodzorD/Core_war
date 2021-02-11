@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.10)
 project(Corewar C)
 
 set(CMAKE_C_STANDARD 99)
@@ -226,6 +226,7 @@ add_executable(Corewar
 		libft/collections/src/hm_init_free_clear.c
 		libft/collections/src/hm_lookup_remove_insert.c
 		libft/collections/src/iterator.c
+		libft/collections/src/itr_foreach.c
 		libft/collections/src/list.c
 		libft/collections/src/list_conv.c
 		libft/collections/src/list_get.c
@@ -339,7 +340,7 @@ add_executable(Corewar
 		libft/core/src/ft_uitoa_base.c
 		libft/core/src/ft_uitoa_base_static.c
 		libft/getopt/includes/ft_getopt.h
-		sources/vm/collect_flags.c
+		sources/vm/parse_args.c
 		libft/getopt/src/ft_getopt.c
 		libft/getopt/src/ft_getopt_long.c
 		libft/includes/libft.h

@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:34:17 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 18:45:53 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/11 23:24:47 by jpasty           ###   ########.ru       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void					op_aff(t_cursor *custor);
 
 void					dstr_player(t_player *player);
 void					invalid_option(t_opt *opt);
-int						champ_validation(t_args *args, t_lst *plrs);
+void					champ_validation(t_args *args, t_lst *plrs);
 int32_t					calc_addr(int32_t addr);
 int32_t					bytecode_to_int32(
 							const uint8_t *arena, int32_t addr, int32_t size);
@@ -147,7 +147,9 @@ int32_t					calc_addr(int32_t addr);
 int8_t					get_byte(t_vm *vm, int32_t offset);
 void					cycles_to_die_check(t_vm *vm);
 int8_t					check_player_filename(char *filename);
-t_args					*parse_args(t_input inp, t_args *args);
+void					parse_args(t_input inp, t_args *args);
+int32_t					count_plrs(char **av);
+t_lopt					*set_lopt(void);
 
 static t_op				g_op[17] =
 {

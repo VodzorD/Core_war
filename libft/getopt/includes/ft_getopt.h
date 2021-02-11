@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getopt.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/05 13:55:47 by user              #+#    #+#             */
-/*   Updated: 2020/06/09 20:42:26 by user             ###   ########.fr       */
+/*   Created: 2021/02/11 23:18:23 by jpasty            #+#    #+#             */
+/*   Updated: 2021/02/11 23:18:23 by jpasty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LS_FT_GETOPT_H
 # define LS_FT_GETOPT_H
 
-# define FLAGS		"d::n:"
+# define FLAGS		"d:n:"
 
 # define NO_ARG		0
 # define REQ_ARG	1
@@ -53,7 +53,7 @@ typedef struct			s_flag
 
 t_opt					*set_start_opt_val(t_opt *opt);
 int						ft_getopt(t_input inpt, t_opt *opt);
-int						ft_getopt_long(t_input data, t_opt *opt,
-							const t_lopt *lopt, int *lind);
-
+int						ft_getopt_long(t_input data, t_opt **opt,
+										const t_lopt *lopt, int *lind);
+size_t					ft_strcspn(const char *str, const char *sym);
 #endif

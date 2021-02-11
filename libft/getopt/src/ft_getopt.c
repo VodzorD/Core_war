@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getopt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/05 14:33:18 by user              #+#    #+#             */
-/*   Updated: 2020/06/09 20:25:15 by user             ###   ########.fr       */
+/*   Created: 2021/02/11 23:22:09 by jpasty            #+#    #+#             */
+/*   Updated: 2021/02/11 23:22:09 by jpasty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		no_more_options(char **optcursor)
+int				no_more_options(char **optcursor)
 {
 	*optcursor = NULL;
 	return (-1);
 }
 
-static void		opt_has_arg(t_input *input, t_opt **opt, char **optcursor)
+void			opt_has_arg(t_input *input, t_opt **opt, char **optcursor)
 {
 	if ((*opt)->optdecl)
 	{
@@ -47,7 +47,7 @@ static void		opt_has_arg(t_input *input, t_opt **opt, char **optcursor)
 		(*opt)->optchar = '?';
 }
 
-static int		ft_get_opt(t_input *input, t_opt *opt)
+int				ft_get_opt(t_input *input, t_opt *opt)
 {
 	static char	*optcursor = NULL;
 
@@ -61,9 +61,9 @@ static int		ft_get_opt(t_input *input, t_opt *opt)
 		(opt->optind)++;
 		return (no_more_options(&optcursor));
 	}
-	if (optcursor == NULL || *optcursor == '\0')
+	if (!optcursor || *optcursor == '\0')
 		optcursor = input->av[opt->optind] + 1;
-	opt->optchar = *optcursor;
+	opt->optchar = (int)*(optcursor);
 	opt->optopt = optcursor;
 	opt->optdecl = ft_strchr(FLAGS, opt->optchar);
 	opt_has_arg(input, &opt, &optcursor);
@@ -77,7 +77,7 @@ t_opt			*set_start_opt_val(t_opt *opt)
 	if (!opt)
 	{
 		if (!(opt = (t_opt *)malloc(sizeof(t_opt))))
-			ft_error("Cannot allocate memmory", 2);
+			exit(-1);
 		opt->optarg = NULL;
 		opt->optdecl = NULL;
 		opt->optchar = -1;
