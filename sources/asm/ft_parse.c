@@ -19,7 +19,7 @@ char	*ft_check_name(char *name)
 	char	*new_name;
 
 	if (!ft_strendwith(".s", name)
-	    || !(point = ft_strstr(name, ".s")))
+		|| !(point = ft_strstr(name, ".s")))
 		error("Wrong file extension", 0);
 	tmp_name = ft_strsub(name, 0, point - name);
 	new_name = ft_strjoin(tmp_name, ".cor");
@@ -81,7 +81,7 @@ void	ft_parse_name_or_comment(t_asm *st, char *res, char **buf)
 	ft_strcpy(res, str);
 	if (quote_two && !ft_check_alt_comment(++quote_two))
 		error("You have something extra at the end of the line "
-                , st->string_num);
+			, st->string_num);
 	free(str);
 	free(*buf);
 }

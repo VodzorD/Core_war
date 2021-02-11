@@ -15,6 +15,7 @@
 t_node		*ft_node_append(t_node **node, t_node *new)
 {
 	t_node	*rover;
+
 	if (*node)
 	{
 		rover = *node;
@@ -26,7 +27,6 @@ t_node		*ft_node_append(t_node **node, t_node *new)
 	*node = new;
 	return (new);
 }
-
 
 t_node		*ft_data_append(t_node **begin_list, t_pntr data)
 {

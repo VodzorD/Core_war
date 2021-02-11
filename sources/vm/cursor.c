@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/11 19:16:50 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/02/11 19:17:24 by cshinoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm)
+t_cursor			*create_cursor(t_player *player, int32_t offset, t_vm *vm)
 {
 	t_cursor		*cursor;
 	static uint32_t	cursor_id;
@@ -15,14 +27,13 @@ t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm)
 	return (cursor);
 }
 
-t_cursor		*clone_cursor(t_cursor *cursor)
+t_cursor			*clone_cursor(t_cursor *cursor)
 {
-	t_cursor	*new;
+	t_cursor		*new;
 
 	new = create_cursor(cursor->player, cursor->offset, cursor->vm);
-	ft_memcpy(new->reg, cursor->reg, sizeof cursor->reg);
+	ft_memcpy(new->reg, cursor->reg, sizeof(cursor->reg));
 	new->carry = cursor->carry;
 	new->last_live = cursor->last_live;
 	return (new);
 }
-

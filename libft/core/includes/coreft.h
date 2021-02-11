@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <fcntl.h>
-#include <stdint.h>
+# include <stdint.h>
 
 # define BUFF_SIZE 512
 # define BASE_LOWER "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -69,7 +69,7 @@ char				*ft_strjoin_free(char *s1, char *s2, int f1, int f2);
 char				*ft_strjoin_free_all(char **s1, char **s2);
 void				ft_del_two_dim_array(char ***arr);
 int					ft_len_two_dim_array(char **arr);
-int                 ft_is_number(const char *str);
+int					ft_is_number(const char *str);
 t_pntr				ft_node_del(t_node *node, void (*del)(void *));
 int					ft_free(void *p);
 void				ft_error(char *mes, int code);
@@ -175,6 +175,6 @@ char				*ft_sitoa_base_static(intmax_t number, int base,
 char				*ft_uitoa_base_static(uintmax_t number, int base,
 											int uppercase);
 char				*ft_ftoa_static(double number, unsigned int precision);
-int 				ft_is_only_digits(const char *str);
+int					ft_is_only_digits(const char *str);
 
 #endif

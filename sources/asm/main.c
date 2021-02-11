@@ -6,7 +6,7 @@
 /*   By: polina <polina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 17:41:27 by polina            #+#    #+#             */
-/*   Updated: 2021/01/26 17:41:54 by polina           ###   ########.fr       */
+/*   Updated: 2021/02/11 18:57:06 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,23 @@ void	ft_init_size_dir(t_asm *st)
 	i = -1;
 	while (++i < 16)
 	{
-		if (!ft_strcmp(st->op_tab[i].name, "zjmp") || !ft_strcmp(st->op_tab[i].name, "ldi") || 
-		!ft_strcmp(st->op_tab[i].name, "sti") || !ft_strcmp(st->op_tab[i].name, "fork") ||
-		!ft_strcmp(st->op_tab[i].name, "lldi") || !ft_strcmp(st->op_tab[i].name, "lfork"))
+		if (!ft_strcmp(st->op_tab[i].name, "zjmp")
+			|| !ft_strcmp(st->op_tab[i].name, "ldi")
+			|| !ft_strcmp(st->op_tab[i].name, "sti")
+			|| !ft_strcmp(st->op_tab[i].name, "fork")
+			|| !ft_strcmp(st->op_tab[i].name, "lldi")
+			|| !ft_strcmp(st->op_tab[i].name, "lfork"))
 			st->op_tab[i].size_dir = 2;
 		else
 			st->op_tab[i].size_dir = 4;
 	}
-	
 }
 
 void	ft_init_op(t_op *op, char *name, int args, int needs_code)
 {
 	op->name = name;
 	op->count_args = args;
-	op->needs_code_args  = needs_code;
+	op->needs_code_args = needs_code;
 }
 
 void	ft_init_op_tab(t_asm *st)
@@ -78,7 +80,8 @@ void	ft_del_struct(t_asm *st, char **name)
 	ft_strdel((char **)&st->exec_code);
 }
 
-int		main(int ac, char **av) {
+int		main(int ac, char **av)
+{
 	char	*name;
 	t_asm	st;
 

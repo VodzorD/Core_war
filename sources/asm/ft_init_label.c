@@ -18,7 +18,7 @@ t_label	*ft_find_label(char *name, t_asm *st)
 
 	name++;
 	tmp = st->label;
-	while(tmp && ft_strcmp(tmp->name, name))
+	while (tmp && ft_strcmp(tmp->name, name))
 		tmp = tmp->next;
 	if (!tmp)
 		error("Wrong label name ", st->string_num);
@@ -40,7 +40,7 @@ t_label	*ft_init_label(char *name, int bytes)
 void	ft_add_label(char *name, t_asm *st)
 {
 	t_label *tmp;
-	
+
 	if (!st->label)
 		st->label = ft_init_label(name, st->count_bytes);
 	else

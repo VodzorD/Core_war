@@ -34,11 +34,10 @@ void			qu_foreach(t_qu *qu, t_fmap foreach)
 	ft_lstiter(qu->head, (void (*)(t_pntr *)) foreach);
 }
 
-
 t_itr			*qu_itr_load(t_qu *qu, t_itr *itr, t_fprdct prdct)
 {
 	size_t		i;
-	t_node 		*entry;
+	t_node		*entry;
 
 	itr_clear(itr);
 	if (!itr && !(itr = ft_memalloc(sizeof(t_itr))))

@@ -1,14 +1,25 @@
-# include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cursor_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/11 19:25:12 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/02/11 19:26:09 by cshinoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void	move_cursor(t_cursor *cursor)
+#include "corewar.h"
+
+void			move_cursor(t_cursor *cursor)
 {
 	cursor->offset = calc_addr(cursor->offset + cursor->step);
 	cursor->step = 0;
 	ft_bzero(cursor->args_types, 3);
 }
 
-
-uint32_t	step_size(uint8_t arg_type, t_op *op)
+uint32_t		step_size(uint8_t arg_type, t_op *op)
 {
 	if (arg_type & T_REG)
 		return (REG_LEN);
@@ -19,7 +30,7 @@ uint32_t	step_size(uint8_t arg_type, t_op *op)
 	return (0);
 }
 
-uint32_t	calc_step(t_cursor *cursor)
+uint32_t		calc_step(t_cursor *cursor)
 {
 	int32_t		i;
 	uint32_t	step;

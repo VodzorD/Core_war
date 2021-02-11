@@ -17,8 +17,9 @@ int		ft_add_sub_args(char *args, t_asm *st)
 	char	**arr_args;
 
 	arr_args = ft_get_args(args, 3, st);
-	if ((ft_check_type(arr_args[0], st) != 1) || (ft_check_type(arr_args[1], st) != 1) || \
-	(ft_check_type(arr_args[2], st) != 1))
+	if ((ft_check_type(arr_args[0], st) != 1)
+		|| (ft_check_type(arr_args[1], st) != 1)
+		|| (ft_check_type(arr_args[2], st) != 1))
 		error("Wrong type of argument ", st->string_num);
 	ft_del_two_dim_array(&arr_args);
 	return (5);

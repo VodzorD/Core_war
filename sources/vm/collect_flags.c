@@ -90,14 +90,15 @@ int32_t		count_plrs(char **av)
 	plrs_num = 0;
 	while (*av)
 	{
-		if (ft_strendwith(".cor", *av)) //TODO create str_end0_with()
+		if (ft_strendwith(".cor", *av))
 			plrs_num++;
 		*av++;
 	}
 	return (plrs_num);
 }
 
-void		fit_players(t_args *args, t_qu *qu) {
+void		fit_players(t_args *args, t_qu *qu)
+{
 	int		i;
 
 	i = 0;
@@ -111,7 +112,7 @@ void		fit_players(t_args *args, t_qu *qu) {
 		ft_error("Ошибочка", -1);
 }
 
-t_args 		*collect_args(t_input inp, t_args *args)
+t_args 		*parse_args(t_input inp, t_args *args)
 {
 	static t_opt	o;
 	int 	rez;

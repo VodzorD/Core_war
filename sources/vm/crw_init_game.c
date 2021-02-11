@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   crw_init_game.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/11 19:30:01 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/02/11 19:38:37 by cshinoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-static void 			init_arena(t_vm *vm)
+static void		init_arena(t_vm *vm)
 {
 	uint32_t	offset;
 	t_itr		itr;
@@ -17,12 +29,12 @@ static void 			init_arena(t_vm *vm)
 	itr_clear(&itr);
 }
 
-void	init_cursors(t_vm *vm)
+void			init_cursors(t_vm *vm)
 {
 	uint32_t	offset;
 	t_itr		itr;
-	static t_player	*player;
-	static t_cursor *cursor;
+	t_player	*player;
+	t_cursor	*cursor;
 
 	offset = 0;
 	ft_bzero(&itr, sizeof(t_itr));
@@ -36,10 +48,9 @@ void	init_cursors(t_vm *vm)
 	itr_clear(&itr);
 }
 
-
-t_vm					*crw_init_game(t_vm *vm)
+t_vm			*crw_init_game(t_vm *vm)
 {
 	init_arena(vm);
 	init_cursors(vm);
-	return vm; //TODO
+	return (vm);
 }

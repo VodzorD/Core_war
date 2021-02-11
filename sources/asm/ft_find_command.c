@@ -52,7 +52,8 @@ void	ft_check_args_char(char *str, t_asm *st)
 		while (*str)
 		{
 			if (!ft_strchr(LABEL_CHARS, *str))
-				error("Label names contains invalid charecters ", st->string_num);
+				error("Label names contains invalid charecters "
+					, st->string_num);
 			str++;
 		}
 	}
@@ -61,7 +62,8 @@ void	ft_check_args_char(char *str, t_asm *st)
 		while (*str)
 		{
 			if (!ft_isdigit(*str))
-				error("Number names contains invalid charecters" , st->string_num);
+				error("Number names contains invalid charecters",
+					st->string_num);
 			str++;
 		}
 	}

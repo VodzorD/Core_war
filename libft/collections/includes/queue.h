@@ -16,13 +16,6 @@
 # include "coreft.h"
 # include "list.h"
 
-//typedef struct		s_node
-//{
-//	void			*data;
-//	struct s_node	*next;
-//	struct s_node	*prev;
-//}					t_node;
-
 typedef struct				s_queue
 {
 	t_node					*head;
@@ -30,11 +23,9 @@ typedef struct				s_queue
 	size_t					len;
 }							t_qu;
 
-
-
-t_pntr			qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data);
-void			qu_foreach(t_qu *qu, t_fmap foreach);
-t_itr			*qu_itr_load(t_qu *qu, t_itr *itr, t_fprdct prdct);
+t_pntr						qu_rm_data(t_qu *qu, t_fequal equal, t_pntr data);
+void						qu_foreach(t_qu *qu, t_fmap foreach);
+t_itr						*qu_itr_load(t_qu *qu, t_itr *itr, t_fprdct prdct);
 t_qu						*qu_by_lst(t_lst *lst);
 int							qu_contains(t_qu *qu, t_pntr data);
 t_qu						*qu_new(void);

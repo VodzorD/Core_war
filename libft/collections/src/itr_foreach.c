@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   itr_foreach.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheidy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/09 20:55:03 by vheidy            #+#    #+#             */
-/*   Updated: 2019/09/11 19:08:05 by vheidy           ###   ########.fr       */
+/*   Created: 2021/02/11 18:15:21 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/02/11 18:15:40 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../core/includes/coreft.h"
+#include <iterator.h>
 
-int		ft_isascii(int c)
+void			itr_foreach(t_itr *itr, t_fmap for_func)
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	else
-		return (0);
+	ft_lstiter(itr->cur_node, (void (*)(t_pntr *)) for_func);
 }

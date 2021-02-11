@@ -1,33 +1,45 @@
-# include "corewar.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   crw_dying_process.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/11 19:23:53 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/02/11 19:27:23 by cshinoha         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int	is_died(t_cursor *cursor)
+#include "corewar.h"
+
+static int			is_died(t_cursor *cursor)
 {
 	return (cursor->vm->cycles_to_die <= 0
 			|| cursor->vm->cycles - cursor->last_live
-			   >= cursor->vm->cycles_to_die);
+				>= cursor->vm->cycles_to_die);
 }
 
-static void		delete_died_cursors(t_vm *vm)
+static void			delete_died_cursors(t_vm *vm)
 {
-	t_itr		itr;
-	t_cursor	*cursor;
+	t_itr			itr;
+	t_cursor		*cursor;
 
 	ft_bzero(&itr, sizeof(t_itr));
-	qu_itr_load(&vm->cursors, &itr, (t_fprdct)&is_died);
-	while (itr_has_more(&itr)) {
+	qu_itr_load(&vm->cursors, &itr, (t_fprdct) & is_died);
+	while (itr_has_more(&itr))
+	{
 		cursor = itr_next(&itr);
-//		ft_printf("cursor dead: id-%u\tplayer-%u\n", cursor->id, cursor->player->id);
-		free(qu_rm_data(&vm->cursors, NULL, cursor)); //TODO
+		free(qu_rm_data(&vm->cursors, NULL, cursor));
 	}
 	itr_clear(&itr);
 }
 
-static void		reset_live(t_player *pl)
+static inline void	reset_live(t_player *pl)
 {
 	pl->current_lives_num = 0;
 }
 
-void			cycles_to_die_check(t_vm *vm)
+void				cycles_to_die_check(t_vm *vm)
 {
 	vm->checks_num++;
 	delete_died_cursors(vm);
@@ -37,7 +49,7 @@ void			cycles_to_die_check(t_vm *vm)
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_num = 0;
 	}
-	lst_foreach(&vm->players, (t_fmap)&reset_live);
+	lst_foreach(&vm->players, (t_fmap) & reset_live);
 	vm->cycles_after_check = 0;
 	vm->lives_num = 0;
 }

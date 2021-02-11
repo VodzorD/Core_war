@@ -38,7 +38,8 @@ void	ft_parse_instruction(t_asm *st, char **buf)
 	int		i;
 
 	i = 0;
-	if ((colon = ft_strchr(*buf, LABEL_CHAR)) && ft_strchr(LABEL_CHARS, *(colon - 1)))
+	if ((colon = ft_strchr(*buf, LABEL_CHAR))
+		&& ft_strchr(LABEL_CHARS, *(colon - 1)))
 	{
 		ft_add_label(ft_create_name_label(colon, buf, st), st);
 		colon++;
@@ -50,7 +51,7 @@ void	ft_parse_instruction(t_asm *st, char **buf)
 	else
 	{
 		while ((*buf)[i] && ft_find_space((*buf)[i]))
-				i++;
+			i++;
 		if ((*buf)[i])
 			ft_read_command(&(*buf)[i], st, 1);
 	}

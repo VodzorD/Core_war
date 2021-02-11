@@ -6,7 +6,7 @@
 /*   By: polina <polina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:39:02 by polina            #+#    #+#             */
-/*   Updated: 2021/02/05 14:36:49 by polina           ###   ########.fr       */
+/*   Updated: 2021/02/11 18:51:47 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ char	*ft_del_space(char *str, t_asm *st)
 	while (*end && !ft_find_space(*end))
 		end++;
 	if (!ft_check_alt_comment(end))
-		error("You have something extra at the end of the line ", st->string_num);
+		error("You have something extra at the end of the line "
+			, st->string_num);
 	return (ft_strsub(start, 0, end - start));
 }

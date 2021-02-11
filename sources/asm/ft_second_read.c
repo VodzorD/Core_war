@@ -6,15 +6,15 @@
 /*   By: polina <polina@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 16:59:46 by polina            #+#    #+#             */
-/*   Updated: 2021/02/05 14:37:11 by polina           ###   ########.fr       */
+/*   Updated: 2021/02/11 18:51:17 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-void	ft_check_end_line(t_asm *st)
+void				ft_check_end_line(t_asm *st)
 {
-	char	buf[1];
+	char			buf[1];
 
 	if (lseek(st->fd_orig, -1, SEEK_END) == -1L)
 		error("Failed to seek", 0);
@@ -26,7 +26,7 @@ void	ft_check_end_line(t_asm *st)
 		error("Failed to seek", 0);
 }
 
-void	ft_select_command(t_asm *st, char *name, char *args)
+void				ft_select_command(t_asm *st, char *name, char *args)
 {
 	int				i;
 
@@ -36,9 +36,9 @@ void	ft_select_command(t_asm *st, char *name, char *args)
 			ft_print_command(st, i, args);
 }
 
-void	ft_support_parse(int i, char *buf, t_asm *st)
+void				ft_support_parse(int i, char *buf, t_asm *st)
 {
-	char	*colon;
+	char			*colon;
 
 	if ((colon = ft_strchr(buf, LABEL_CHAR)) && \
 	ft_strchr(LABEL_CHARS, *(colon - 1)))
@@ -52,16 +52,16 @@ void	ft_support_parse(int i, char *buf, t_asm *st)
 	else
 	{
 		while (buf[i] && ft_find_space(buf[i]))
-				i++;
+			i++;
 		if (buf[i])
 			ft_read_command(&buf[i], st, 0);
 	}
 }
 
-void	ft_parse_without_less(t_asm *st)
+void				ft_parse_without_less(t_asm *st)
 {
-	char	*buf;
-	int		i;
+	char			*buf;
+	int				i;
 
 	while (ft_gnl(st->fd_orig, &buf))
 	{
@@ -76,9 +76,9 @@ void	ft_parse_without_less(t_asm *st)
 	}
 }
 
-void	ft_second_read(t_asm *st)
+void				ft_second_read(t_asm *st)
 {
-	int		magic;
+	int				magic;
 	int				test;
 	unsigned char	*pointer;
 

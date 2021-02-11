@@ -21,18 +21,18 @@ int			champ_validation(t_args *args, t_lst *plrs)
 static t_player	*check_plr(size_t id, char *plr_filename)
 {
 	int 		fd;
-	static uint8_t 	hdr[sizeof(header_t)];
+	static uint8_t 	hdr[sizeof(t_header)];
 	t_player	*plr;
 	uint8_t		*hdd;
 	hdd = hdr;
 
-	ft_bzero(hdr, sizeof(header_t));
+	ft_bzero(hdr, sizeof(t_header));
 	if (!(plr = ft_memalloc(sizeof(t_player))))
 		ft_error("Alloc err", -1);
 	plr->id = id;
 	if ((fd = open(plr_filename, O_RDONLY)) == -1)
 		ft_error("Cannot open file", -1);
-	if (read(fd, hdr, sizeof(header_t)) != sizeof(header_t))
+	if (read(fd, hdr, sizeof(t_header)) != sizeof(t_header))
 		ft_error("reading error", -1);
 	if (validate_num( &hdd, sizeof(COREWAR_EXEC_MAGIC)) != COREWAR_EXEC_MAGIC)
 		ft_error("MAGIC doesn't exist!", -1);

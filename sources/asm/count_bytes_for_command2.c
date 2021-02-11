@@ -48,7 +48,8 @@ int		ft_sti_args(char *args, t_asm *st)
 		error("Wrong type of argument ", st->string_num);
 	if ((cod_third = ft_check_type(arr_args[2], st)) == 11)
 		error("Wrong type of argument ", st->string_num);
-	res = 3 + ft_count_type_byte(ft_check_type(arr_args[1], st), 0) + ft_count_type_byte(cod_third, 0);
+	res = 3 + ft_count_type_byte(ft_check_type(arr_args[1], st), 0)
+			+ ft_count_type_byte(cod_third, 0);
 	ft_del_two_dim_array(&arr_args);
 	return (res);
 }

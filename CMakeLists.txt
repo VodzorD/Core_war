@@ -35,6 +35,7 @@ add_executable(asm
 		libft/collections/src/hm_init_free_clear.c
 		libft/collections/src/hm_lookup_remove_insert.c
 		libft/collections/src/iterator.c
+		libft/collections/src/itr_foreach.c
 		libft/collections/src/list.c
 		libft/collections/src/list_conv.c
 		libft/collections/src/list_get.c
@@ -186,7 +187,6 @@ add_executable(asm
 		libft/string/src/string_builder_operats.c)
 
 add_executable(Corewar
-		sources/vm/crw_args_handler.c
 		sources/vm/champ_validation.c
 		sources/vm/crw_dying_process.c
 		sources/vm/crw_execute.c
@@ -372,4 +372,4 @@ add_executable(Corewar
 		libft/string/includes/string_builder.h
 		libft/string/src/string_builder.c
 		libft/string/src/string_builder_operats.c
-		sources/vm/crw_utils.c)
+		sources/vm/crw_utils.c sources/op/op_arg_handlers.c)
