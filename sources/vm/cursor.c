@@ -1,4 +1,4 @@
-#include "../includes/corewar.h"
+#include "corewar.h"
 
 t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm)
 {

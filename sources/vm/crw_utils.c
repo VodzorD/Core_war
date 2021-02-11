@@ -1,4 +1,4 @@
-#include "../includes/corewar.h"
+#include "corewar.h"
 
 inline int32_t		calc_addr(int32_t addr)
 {

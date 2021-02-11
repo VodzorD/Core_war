@@ -58,6 +58,17 @@ typedef struct		s_pair
 	t_pntr			value;
 }					t_pair;
 
+typedef struct		s_gnl
+{
+	char			*data;
+	int				fd;
+	struct s_gnl	*next;
+}					t_gnl;
+
+char				*ft_strjoin_free(char *s1, char *s2, int f1, int f2);
+char				*ft_strjoin_free_all(char **s1, char **s2);
+void				ft_del_two_dim_array(char ***arr);
+int					ft_len_two_dim_array(char **arr);
 int                 ft_is_number(const char *str);
 t_pntr				ft_node_del(t_node *node, void (*del)(void *));
 int					ft_free(void *p);

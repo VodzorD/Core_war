@@ -1,4 +1,4 @@
-#include "../includes/corewar.h"
+#include "corewar.h"
 
 t_vm		*create_vm(t_vm *vm)
 {
@@ -15,4 +15,6 @@ int     main(int ac, char **av)
 	champ_validation(&vm.arg, &vm.players);
     crw_init_game(&vm);
 	crw_exec(&vm);
+	lst_clear(&vm.players, (t_ffree) &dstr_player);
+//	qu_clear(&vm.cursors);
 }

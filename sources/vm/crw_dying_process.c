@@ -1,4 +1,4 @@
-# include "../includes/corewar.h"
+# include "corewar.h"
 
 static int	is_died(t_cursor *cursor)
 {

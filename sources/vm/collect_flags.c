@@ -90,7 +90,7 @@ int32_t		count_plrs(char **av)
 	plrs_num = 0;
 	while (*av)
 	{
-		if (ft_strstr(*av, ".cor") && !ft_strendwith(".cor", *av)) //TODO create str_end0_with()
+		if (ft_strendwith(".cor", *av)) //TODO create str_end0_with()
 			plrs_num++;
 		*av++;
 	}

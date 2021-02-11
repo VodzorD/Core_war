@@ -1,4 +1,4 @@
-# include "../includes/corewar.h"
+# include "corewar.h"
 
 static int		is_register(t_vm *vm, int32_t offset)
 {
@@ -39,12 +39,6 @@ int			is_arg_types_valid(t_cursor *cursor)
 	}
 	return (1);
 }
-
-//inline int 			is_arg_types_valid(t_cursor *cursor) //TODO check
-//{
-//	return !(ft_memcmp(cursor->args_types, cursor->op->args_types,
-//					   sizeof(uint8_t) * cursor->op->args_num));
-//}
 
 void		parse_types_code(t_cursor *cursor)
 {

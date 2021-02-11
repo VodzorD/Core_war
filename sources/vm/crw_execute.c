@@ -1,4 +1,4 @@
-#include "../includes/corewar.h"
+#include "corewar.h"
 
 static int		update_op(t_cursor *cursor)
 {

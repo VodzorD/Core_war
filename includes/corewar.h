@@ -4,36 +4,13 @@
 # include "../libft/includes/libft.h"
 # include "op.h"
 
-
-/*
-** Macroses
-*/
-
 # define OP_CODE_LEN	1
 # define ARGS_CODE_LEN	1
 # define REG_LEN		1
 
-/*
-** Log Levels
-*/
 
-# define LIVE_LOG			1
-# define CYCLE_LOG			2
-# define OP_LOG				4
-# define DEATH_LOG			8
-# define PC_MOVEMENT_LOG	16
-
-/*
-** Arg's type — Arg's code
-*/
-
-//typedef struct			s_opt
-//{
-//	int					out;
-//	int					color;
-//	int					req;
-//	int					pth;
-//}						t_opt;
+typedef struct			s_cursor t_cursor;
+typedef int32_t			(*t_arg_handler)(t_cursor *cursor, int mode);
 
 typedef struct			s_crw_arguments
 {
@@ -48,24 +25,6 @@ static uint8_t			g_arg_code[3] = {
 	T_DIR,
 	T_IND
 };
-
-/*
-** Player
-*/
-
-/*
-** id                 — id number of player
-** name               — champion's name
-** comment            — champion's comment
-** code_size          — size of champion's executable code
-** code               — champion's executable code
-** current_lives_num  — number of reports that player is alive
-**                      during current cycles_to_die period
-** previous_lives_num — number of reports that player is alive
-**                      during previous cycles_to_die period
-** last_live          — cycle's number, on which player was assigned
-**                      as alive last time
-*/
 
 typedef struct			s_player
 {
@@ -93,25 +52,22 @@ typedef struct			s_vm
 	t_args				arg;
 }						t_vm;
 
-typedef struct s_cursor t_cursor;
 
-typedef int32_t		(*t_arg_handler)(t_cursor *cursor, int mode);
 
-typedef struct	s_op
+typedef struct			s_op
 {
-	char		*name;
-	uint8_t		code;
-	uint8_t		args_num;
-	int 		args_types_code;
-	uint8_t		args_types[3];
-	int			modify_carry;
-	uint8_t		t_dir_size;
-	uint32_t	cycles;
-	void		(*func)(t_cursor *);
+	char				*name;
+	uint8_t				code;
+	uint8_t				args_num;
+	int					args_types_code;
+	uint8_t				args_types[3];
+	int					modify_carry;
+	uint8_t				t_dir_size;
+	uint32_t			cycles;
+	void				(*func)(t_cursor *);
+}						t_op;
 
-}				t_op;
-
-struct			s_cursor
+struct					s_cursor
 {
 	t_vm				*vm;
 	uint32_t			id;
@@ -126,9 +82,9 @@ struct			s_cursor
 	t_player			*player;
 };
 
-int32_t			crw_treg(t_cursor *cursor, int mode);
-int32_t			crw_tdir(t_cursor *cursor, int mode);
-int32_t			crw_tind(t_cursor *cursor, int mode);
+int32_t					crw_treg(t_cursor *cursor, int mode);
+int32_t					crw_tdir(t_cursor *cursor, int mode);
+int32_t					crw_tind(t_cursor *cursor, int mode);
 
 static t_arg_handler	g_arg_hands[] = {
 		[1] = crw_treg,
@@ -137,24 +93,56 @@ static t_arg_handler	g_arg_hands[] = {
 };
 
 
-void			op_live(t_cursor *custor);
-void			op_ld(t_cursor *custor);
-void			op_st(t_cursor *custor);
-void			op_add(t_cursor *custor);
-void			op_sub(t_cursor *custor);
-void			op_and(t_cursor *custor);
-void			op_or(t_cursor *custor);
-void			op_xor(t_cursor *custor);
-void			op_zjmp(t_cursor *custor);
-void			op_ldi(t_cursor *custor);
-void			op_sti(t_cursor *custor);
-void			op_fork(t_cursor *custor);
-void			op_lld(t_cursor *custor);
-void			op_lldi(t_cursor *custor);
-void			op_lfork(t_cursor *custor);
-void			op_aff(t_cursor *custor);
+void					op_live(t_cursor *custor);
+void					op_ld(t_cursor *custor);
+void					op_st(t_cursor *custor);
+void					op_add(t_cursor *custor);
+void					op_sub(t_cursor *custor);
+void					op_and(t_cursor *custor);
+void					op_or(t_cursor *custor);
+void					op_xor(t_cursor *custor);
+void					op_zjmp(t_cursor *custor);
+void					op_ldi(t_cursor *custor);
+void					op_sti(t_cursor *custor);
+void					op_fork(t_cursor *custor);
+void					op_lld(t_cursor *custor);
+void					op_lldi(t_cursor *custor);
+void					op_lfork(t_cursor *custor);
+void					op_aff(t_cursor *custor);
 
-static t_op		g_op[17] = {
+
+void					dstr_player(t_player *player);
+void				invalid_option(t_opt *opt);
+int				champ_validation(t_args *args, t_lst *plrs);
+int32_t		calc_addr(int32_t addr);
+
+int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size);
+
+void		int32_to_bytecode(uint8_t *arena, int32_t addr, int32_t value,
+							  int32_t size);
+int32_t		get_op_arg(t_cursor *cursor, uint8_t index, int mod);
+uint32_t	calc_step(t_cursor *cursor);
+t_vm					*crw_init_game(t_vm *vm);
+t_player		*create_player(int id);
+void			cycles_to_die_check(t_vm *vm);
+void			crw_exec(t_vm *vm);
+void			init_cursors(t_vm *vm);
+t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm);
+t_cursor		*clone_cursor(t_cursor *cursor);
+void				move_cursor(t_cursor *cursor);
+uint32_t			step_size(uint8_t arg_type, t_op *op);
+int					is_args_valid(t_cursor *cursor);
+int 				is_arg_types_valid(t_cursor *cursor); //TODO check
+void				parse_types_code(t_cursor *cursor);
+t_player				*parse_champion(char *filename, int num);
+int32_t					calc_addr(int32_t addr);
+int8_t					get_byte(t_vm *vm, int32_t offset);
+void					cycles_to_die_check(t_vm *vm);
+int8_t 		check_player_filename(char *filename);
+t_args 		*parse_options(int ac, char **av, t_args *args);
+t_args 		*collect_args(t_input inp, t_args *args);
+
+static t_op				g_op[17] = {
 		[0x01] =
 		{
 				.name = "live",
@@ -333,36 +321,5 @@ static t_op		g_op[17] = {
 				.func = &op_aff
 		}
 };
-
-
-void				invalid_option(t_opt *opt);
-int				champ_validation(t_args *args, t_lst *plrs);
-int32_t		calc_addr(int32_t addr);
-
-int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size);
-
-void		int32_to_bytecode(uint8_t *arena, int32_t addr, int32_t value,
-							  int32_t size);
-int32_t		get_op_arg(t_cursor *cursor, uint8_t index, int mod);
-uint32_t	calc_step(t_cursor *cursor);
-t_vm					*crw_init_game(t_vm *vm);
-t_player		*create_player(int id);
-void			cycles_to_die_check(t_vm *vm);
-void			crw_exec(t_vm *vm);
-void			init_cursors(t_vm *vm);
-t_cursor	*create_cursor(t_player *player, int32_t offset, t_vm *vm);
-t_cursor		*clone_cursor(t_cursor *cursor);
-void				move_cursor(t_cursor *cursor);
-uint32_t			step_size(uint8_t arg_type, t_op *op);
-int					is_args_valid(t_cursor *cursor);
-int 				is_arg_types_valid(t_cursor *cursor); //TODO check
-void				parse_types_code(t_cursor *cursor);
-t_player				*parse_champion(char *filename, int num);
-int32_t					calc_addr(int32_t addr);
-int8_t					get_byte(t_vm *vm, int32_t offset);
-void					cycles_to_die_check(t_vm *vm);
-int8_t 		check_player_filename(char *filename);
-t_args 		*parse_options(int ac, char **av, t_args *args);
-t_args 		*collect_args(t_input inp, t_args *args);
 
 # endif

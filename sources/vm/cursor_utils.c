@@ -1,4 +1,4 @@
-# include "../includes/corewar.h"
+# include "corewar.h"
 
 void	move_cursor(t_cursor *cursor)
 {
