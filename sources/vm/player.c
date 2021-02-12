@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/11 19:40:57 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:40:59 by cshinoha         ###   ########.fr       */
+/*   Created: 2021/02/11 23:14:28 by jpasty            #+#    #+#             */
+/*   Updated: 2021/02/11 23:14:28 by jpasty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,29 @@ void		dstr_player(t_player *player)
 		free(player->code);
 		free(player);
 	}
+}
+
+int8_t		check_player_filename(char *filename)
+{
+	char	*ext;
+
+	ext = ft_strchr(filename, '.');
+	if (*filename != '.' && ext)
+		if (!ft_strcmp(ext, ".cor"))
+			return (1);
+	return (0);
+}
+
+int32_t		count_plrs(char **av)
+{
+	int32_t	plrs_num;
+
+	plrs_num = 0;
+	while (*av)
+	{
+		if (ft_strendwith(".cor", *av))
+			plrs_num++;
+		av++;
+	}
+	return (plrs_num);
 }

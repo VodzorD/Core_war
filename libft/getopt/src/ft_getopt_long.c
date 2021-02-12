@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getopt_long.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: user <user@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/05 14:29:26 by user              #+#    #+#             */
-/*   Updated: 2020/06/09 20:23:41 by user             ###   ########.fr       */
+/*   Created: 2021/02/11 23:20:35 by jpasty            #+#    #+#             */
+/*   Updated: 2021/02/11 23:20:35 by jpasty           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		find_val(t_input *input, t_lopt *o, t_opt **opt)
+int				find_val(t_input *input, t_lopt *o, t_opt **opt)
 {
 	int			retval;
 
@@ -37,7 +37,7 @@ static int		find_val(t_input *input, t_lopt *o, t_opt **opt)
 	return (retval);
 }
 
-static int		find_matches(t_lopt *o, t_lopt **match, t_input input, int arg)
+int				find_matches(t_lopt *o, t_lopt **match, t_input input, int arg)
 {
 	int			num_matches;
 	const char	*curr_arg;
@@ -45,7 +45,7 @@ static int		find_matches(t_lopt *o, t_lopt **match, t_input input, int arg)
 
 	num_matches = 0;
 	curr_arg = input.av[arg] + 2;
-	arg_name_length = ft_strindexof(curr_arg, '=');
+	arg_name_length = ft_strcspn(curr_arg, "=");
 	while (o->name)
 	{
 		if (ft_strncmp(o->name, curr_arg, arg_name_length) == 0
@@ -59,7 +59,7 @@ static int		find_matches(t_lopt *o, t_lopt **match, t_input input, int arg)
 	return (num_matches);
 }
 
-static int		get_lopt(t_input input, t_opt *opt, t_lopt *lopt, int *longind)
+int				get_lopt(t_input input, t_opt *opt, t_lopt *lopt, int *longind)
 {
 	t_lopt		*o;
 	t_lopt		*match;
@@ -87,12 +87,12 @@ static int		get_lopt(t_input input, t_opt *opt, t_lopt *lopt, int *longind)
 	return (retval);
 }
 
-int				ft_getopt_long(t_input data, t_opt *opt,
-							const t_lopt *lopt, int *lind)
+int				ft_getopt_long(t_input data, t_opt **opt,
+								const t_lopt *lopt, int *lind)
 {
 	int			ret;
 
-	opt = set_start_opt_val(opt);
-	ret = get_lopt(data, opt, lopt, lind);
+	*opt = set_start_opt_val(*opt);
+	ret = get_lopt(data, *opt, lopt, lind);
 	return (ret);
 }

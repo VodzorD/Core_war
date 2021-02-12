@@ -25,6 +25,7 @@ SRCNAME		= crw_dying_process.c \
                              cursor.c \
                              cursor_utils.c \
                              champ_validation.c \
+                             parse_args.c \
                              main.c \
                              op_args_validation.c \
                              player.c \
