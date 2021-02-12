@@ -53,14 +53,16 @@ static void		exec_op(t_cursor *cursor)
 
 static void		exec_cycle(t_vm *vm)
 {
-	t_itr		itr;
+	t_node		*node;
 
-	ft_bzero(&itr, sizeof(t_itr));
-	qu_itr_load(&vm->cursors, &itr, NULL);
+	node = vm->cursors.tail;
 	vm->cycles++;
 	vm->cycles_after_check++;
-	itr_foreach(&itr, (t_fmap)exec_op);
-	itr_clear(&itr);
+	while (node)
+	{
+		exec_op(node->data);
+		node = node->prev;
+	}
 }
 
 void			crw_exec(t_vm *vm)
