@@ -52,5 +52,6 @@ t_vm			*crw_init_game(t_vm *vm)
 {
 	init_arena(vm);
 	init_cursors(vm);
+	vm->last_alive = vm->players.last->data;
 	return (vm);
 }

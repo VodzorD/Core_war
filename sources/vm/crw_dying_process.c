@@ -25,7 +25,7 @@ static void			delete_died_cursors(t_vm *vm)
 	t_cursor		*cursor;
 
 	ft_bzero(&itr, sizeof(t_itr));
-	qu_itr_load(&vm->cursors, &itr, (t_fprdct) & is_died);
+	qu_itr_load(&vm->cursors, &itr, (t_fprdct)is_died);
 	while (itr_has_more(&itr))
 	{
 		cursor = itr_next(&itr);
@@ -49,7 +49,7 @@ void				cycles_to_die_check(t_vm *vm)
 		vm->cycles_to_die -= CYCLE_DELTA;
 		vm->checks_num = 0;
 	}
-	lst_foreach(&vm->players, (t_fmap) & reset_live);
+	lst_foreach(&vm->players, (t_fmap)reset_live);
 	vm->cycles_after_check = 0;
 	vm->lives_num = 0;
 }

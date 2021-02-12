@@ -6,11 +6,16 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:14:28 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:14:28 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 13:22:11 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+int			player_cmp(t_player *left, t_player *right)
+{
+	return (left->id == right->id ? 0 : left->id - right->id);
+}
 
 t_player	*create_player(int id)
 {
@@ -35,13 +40,7 @@ void		dstr_player(t_player *player)
 
 int8_t		check_player_filename(char *filename)
 {
-	char	*ext;
-
-	ext = ft_strchr(filename, '.');
-	if (*filename != '.' && ext)
-		if (!ft_strcmp(ext, ".cor"))
-			return (1);
-	return (0);
+	return (ft_strlngr_than(filename, 4) && ft_strendwith(".cor", filename));
 }
 
 int32_t		count_plrs(char **av)

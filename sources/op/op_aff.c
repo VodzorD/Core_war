@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:58:50 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:06:06 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 12:40:45 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void		op_aff(t_cursor *cursor)
 	reg = get_byte(cursor->vm, cursor->offset + cursor->step);
 	value = cursor->reg[reg - 1];
 	cursor->step += REG_LEN;
-//	if (cursor->vm->display_aff)
-//		ft_printf("Aff: %c\n", (char)value); TODO
+	ft_printf("%c\n", (char)(value % 256));
 }

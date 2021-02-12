@@ -6,7 +6,7 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:05:32 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:05:32 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 15:16:59 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static uint32_t		validate_num(uint8_t **bytes, size_t size)
 	if (size > sizeof(uint32_t))
 		return (0);
 	if (*bytes[0] == 0xff)
-		return (-1);
+		return (CHAMP_MAX_SIZE + 1);
 	while ((*bytes)[i] == 0x00)
 		if (i++ >= size)
 			return (-1);
@@ -77,16 +77,15 @@ static t_player		*check_plr(size_t id, int fd)
 
 	hdd = hdr;
 	ft_bzero(hdr, sizeof(t_header));
-	if (!(plr = ft_memalloc(sizeof(t_player))))
-		ft_error("Alloc err", -1);
-	plr->id = id;
+	plr = create_player(id);
 	if (read(fd, hdr, sizeof(t_header)) != sizeof(t_header))
 		ft_error("reading error", -1);
 	if (validate_num(&hdd, sizeof(COREWAR_EXEC_MAGIC)) != COREWAR_EXEC_MAGIC)
 		ft_error("MAGIC doesn't exist!", -1);
 	if (!(plr->name = validate_str(&hdd, PROG_NAME_LENGTH)))
 		ft_error("Champ name error!", -1);
-	if ((plr->code_size = validate_num(&hdd, sizeof(uint32_t))) == -1)
+	if ((plr->code_size = validate_num(&hdd, sizeof(uint32_t)))
+			> CHAMP_MAX_SIZE)
 		ft_error("Wrong code size!", -1);
 	if (!(plr->comment = validate_str(&hdd, COMMENT_LENGTH)))
 		ft_error("Champ comment error!", -1);
@@ -109,4 +108,5 @@ void				champ_validation(t_args *args, t_lst *plrs)
 		close(fd);
 		i++;
 	}
+	lst_sort(plrs, (t_fcompare)player_cmp);
 }

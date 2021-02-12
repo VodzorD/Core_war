@@ -6,7 +6,7 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:01:35 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:01:35 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 12:33:34 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,18 @@ inline int8_t		get_byte(t_vm *vm, int32_t addr)
 	return (vm->arena[calc_addr(addr)]);
 }
 
+void				crw_usage(void)
+{
+	ft_printf("usage: ./corewar [-d nbr_cycles] [[-n number]\n"
+			"or: ./corewar [--dump nbr_cycles] [--number number]\n"
+			"max players: %u\n", MAX_PLAYERS);
+}
+
 void				invalid_option(t_opt *opt)
 {
-	ft_printf("corewar: invalid option -- \'%s\'\n",
+	ft_printf("corewar: invalid option -- \'%sv\'\n",
 			opt->optopt ? opt->optopt : opt->optarg);
-	ft_printf("usage: ./corewar [-d nbr_cycles] [[-n number]\n");
-	ft_printf("or: ./corewar [--dump nbr_cycles] [--number number]");
+	crw_usage();
 	free(opt);
 	exit(2);
 }

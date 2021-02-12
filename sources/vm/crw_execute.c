@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 19:35:57 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:36:55 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 15:09:01 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void		exec_cycle(t_vm *vm)
 	qu_itr_load(&vm->cursors, &itr, NULL);
 	vm->cycles++;
 	vm->cycles_after_check++;
-	itr_foreach(&itr, (t_fmap) & exec_op);
+	itr_foreach(&itr, (t_fmap)exec_op);
 	itr_clear(&itr);
 }
 
@@ -67,6 +67,11 @@ void			crw_exec(t_vm *vm)
 {
 	while (!qu_is_empty(&vm->cursors))
 	{
+		if (vm->arg.dump_cycle && vm->cycles == vm->arg.dump_cycle)
+		{
+			print_arena(vm->arena);
+			exit(0);
+		}
 		exec_cycle(vm);
 		if (vm->cycles_to_die <= vm->cycles_after_check
 			|| vm->cycles_to_die <= 0)

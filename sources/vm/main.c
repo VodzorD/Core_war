@@ -6,7 +6,7 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:14:39 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:14:39 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 13:07:45 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int			main(int ac, char **av)
 	parse_args((t_input){ac, av}, &vm.arg);
 	champ_validation(&vm.arg, &vm.players);
 	crw_init_game(&vm);
+	print_intro(&vm);
 	crw_exec(&vm);
-	lst_clear(&vm.players, (t_ffree) & dstr_player);
+	print_awards(&vm);
+	lst_clear(&vm.players, (t_ffree)dstr_player);
 	qu_clear(&vm.cursors);
 }

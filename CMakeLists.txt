@@ -188,6 +188,7 @@ add_executable(asm
 
 add_executable(Corewar
 		sources/vm/champ_validation.c
+		sources/vm/print.c
 		sources/vm/crw_dying_process.c
 		sources/vm/crw_execute.c
 		sources/vm/crw_init_game.c

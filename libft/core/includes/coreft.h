@@ -6,7 +6,7 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 14:42:59 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/01/22 19:03:29 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 12:11:59 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *dst, const void *src, size_t n);
 size_t				ft_strlen(const char *str);
+size_t				ft_strlngr_than(const char *s, size_t n);
 char				*ft_strdup(const char *src);
 char				*ft_strncpy(char *dst, const char *src, size_t n);
 char				*ft_strcpy(char *dst, const char *src);

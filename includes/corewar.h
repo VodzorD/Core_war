@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/11 18:34:17 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 23:24:47 by jpasty           ###   ########.ru       */
+/*   Created: 2021/02/12 12:38:39 by cshinoha          #+#    #+#             */
+/*   Updated: 2021/02/12 13:07:45 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,13 +143,16 @@ int						is_args_valid(t_cursor *cursor);
 int						is_arg_types_valid(t_cursor *cursor);
 void					parse_types_code(t_cursor *cursor);
 t_player				*parse_champion(char *filename, int num);
-int32_t					calc_addr(int32_t addr);
 int8_t					get_byte(t_vm *vm, int32_t offset);
-void					cycles_to_die_check(t_vm *vm);
 int8_t					check_player_filename(char *filename);
 void					parse_args(t_input inp, t_args *args);
 int32_t					count_plrs(char **av);
 t_lopt					*set_lopt(void);
+void					crw_usage(void);
+void					print_intro(t_vm *vm);
+void					print_awards(t_vm *vm);
+void					print_arena(uint8_t *arena);
+int						player_cmp(t_player *left, t_player *right);
 
 static t_op				g_op[17] =
 {

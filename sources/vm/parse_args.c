@@ -6,7 +6,7 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:13:43 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:13:43 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 12:36:17 by cshinoha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static void		check_remaining_args(t_input *inp, t_opt *o, t_qu *queue)
 		if (check_player_filename(inp->av[o->optind]))
 			qu_push_head(queue, inp->av[o->optind]);
 		else
-			ft_printf("Player %s don't play this game\n", inp->av[o->optind]);
+			ft_error("Invalid champions file name", -1);
 	}
 	inp->av += o->optind;
 	inp->ac -= o->optind;
@@ -84,18 +84,21 @@ void			fit_players(t_args *args, t_qu *qu)
 		i++;
 	}
 	if (!qu_is_empty(qu))
-		ft_error("Ошибочка", -1);
+		ft_error("Invalid number of players", -1);
 }
 
 void			parse_args(t_input inp, t_args *args)
 {
 	static t_qu	qu;
-	t_opt		*o;
+	static t_opt*o;
 	int			rez;
 
-	o = NULL;
-	if ((args->count_players = count_plrs(inp.av)) > MAX_PLAYERS)
-		ft_error("Ошибочка", -1);
+	if ((args->count_players = count_plrs(inp.av)) > MAX_PLAYERS
+		|| !args->count_players)
+	{
+		crw_usage();
+		ft_error("Invalid number of players", -1);
+	}
 	while (inp.ac > 1)
 	{
 		rez = ft_getopt_long(inp, &o, set_lopt(), NULL);
