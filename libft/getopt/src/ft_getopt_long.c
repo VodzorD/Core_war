@@ -6,11 +6,11 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:20:35 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:20:35 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 19:07:22 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 int				find_val(t_input *input, t_lopt *o, t_opt **opt)
 {

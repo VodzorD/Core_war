@@ -6,11 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:20:50 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 18:25:43 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 18:30:49 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <coreft.h>
+#include "coreft.h"
 
 int		ft_is_number(const char *str)
 {

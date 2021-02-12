@@ -6,11 +6,11 @@
 /*   By: cmeowth <cmeowth@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/28 23:53:57 by cmeowth           #+#    #+#             */
-/*   Updated: 2020/11/29 19:28:09 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 18:30:17 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/coreft.h"
+#include "coreft.h"
 
 char				*ft_ftoa_static(double number, unsigned int precision)
 {

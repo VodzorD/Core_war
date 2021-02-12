@@ -6,14 +6,14 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 12:38:39 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/12 13:07:45 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:55:19 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
-# include "../libft/includes/libft.h"
+# include "libft.h"
 # include "op.h"
 
 # define OP_CODE_LEN	1

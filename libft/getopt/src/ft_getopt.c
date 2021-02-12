@@ -6,11 +6,11 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:22:09 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:22:09 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 19:09:52 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 int				no_more_options(char **optcursor)
 {

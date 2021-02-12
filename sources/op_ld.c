@@ -6,11 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:59:22 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:03:25 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:54:52 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/corewar.h"
+#include "corewar.h"
 
 void				op_ld(t_cursor *cursor)
 {

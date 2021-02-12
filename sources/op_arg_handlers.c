@@ -6,11 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 19:02:10 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:09:15 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:54:21 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/corewar.h"
+#include "corewar.h"
 
 int32_t			crw_treg(t_cursor *cursor, int mode)
 {

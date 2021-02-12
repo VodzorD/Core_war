@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
+/*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 12:54:12 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/12 15:16:13 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 21:26:50 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void			print_arena(uint8_t *arena)
 
 	if (!(bld = sb_create(NULL)))
 		ft_error("Allocation error", -1);
-
 	i = 0;
 	while (i < MEM_SIZE)
 	{
