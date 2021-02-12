@@ -19,9 +19,6 @@
 # define REQ_ARG	1
 # define OPT_ARG	2
 
-# define COLOR_OFF	0
-# define COLOR_ON	1
-
 typedef struct			s_opt
 {
 	char				*optarg;
