@@ -40,7 +40,9 @@ void			print_arena(uint8_t *arena)
 	int			j;
 	t_str_bld	*bld;
 
-	bld = sb_create(NULL);
+	if (!(bld = sb_create(NULL)))
+		ft_error("Allocation error", -1);
+
 	i = 0;
 	while (i < MEM_SIZE)
 	{
