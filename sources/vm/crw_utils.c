@@ -31,7 +31,7 @@ void				crw_usage(void)
 
 void				invalid_option(t_opt *opt)
 {
-	ft_printf("corewar: invalid option -- \'%sv\'\n",
+	ft_printf("corewar: invalid option -- \'%s\'\n",
 			opt->optopt ? opt->optopt : opt->optarg);
 	crw_usage();
 	free(opt);

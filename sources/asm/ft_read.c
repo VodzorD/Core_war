@@ -73,7 +73,6 @@ void	ft_check_condition(char **buf, t_asm *st)
 		free(tmp);
 		if (!ft_strcmp((tmp = ft_strsub(*buf, 0, 8)), COMMENT_CMD_STRING))
 		{
-			free(tmp);
 			ft_parse_name_or_comment(st, st->comment, buf);
 		}
 	}

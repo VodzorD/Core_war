@@ -21,6 +21,12 @@ static void		player_intro(t_player *player)
 		player->comment);
 }
 
+int				print_error(char *error_msg)
+{
+	ft_putstr_fd(2, error_msg);
+	return (EXIT_FAILURE);
+}
+
 void			print_intro(t_vm *vm)
 {
 	ft_printf("Introducing contestants...\n");

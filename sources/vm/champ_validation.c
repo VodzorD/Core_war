@@ -20,9 +20,15 @@ static uint8_t		*validate_code(int fd, uint32_t prog_size)
 	if (!(code = malloc(sizeof(uint8_t) * prog_size)))
 		return (NULL);
 	if (read(fd, code, prog_size) != prog_size)
+	{
+		free(code);
 		return (NULL);
+	}
 	if (read(fd, &eof, 1) != 0)
+	{
+		free(code);
 		return (NULL);
+	}
 	return (code);
 }
 
@@ -37,7 +43,7 @@ static char			*validate_str(uint8_t **bytes, size_t len)
 	while (i < 4)
 		if ((*bytes)[len + i++] != 0)
 			return (NULL);
-	if (!(ret = malloc(sizeof(char) * len)))
+	if (!(ret = ft_memalloc(sizeof(char) * len)))
 		return (NULL);
 	while (len--)
 		ret[len] = (*bytes)[len];
@@ -69,42 +75,51 @@ static uint32_t		validate_num(uint8_t **bytes, size_t size)
 	return (num);
 }
 
-static t_player		*check_plr(size_t id, int fd)
+static int			check_plr(size_t id, int fd, t_player **plr)
 {
 	static uint8_t	hdr[sizeof(t_header)];
-	t_player		*plr;
 	uint8_t			*hdd;
 
 	hdd = hdr;
 	ft_bzero(hdr, sizeof(t_header));
-	plr = create_player(id);
+	*plr = create_player(id);
 	if (read(fd, hdr, sizeof(t_header)) != sizeof(t_header))
-		ft_error("reading error", -1);
+		return (print_error("reading error"));
 	if (validate_num(&hdd, sizeof(COREWAR_EXEC_MAGIC)) != COREWAR_EXEC_MAGIC)
-		ft_error("MAGIC doesn't exist!", -1);
-	if (!(plr->name = validate_str(&hdd, PROG_NAME_LENGTH)))
-		ft_error("Champ name error!", -1);
-	if ((plr->code_size = validate_num(&hdd, sizeof(uint32_t)))
+		return (print_error("MAGIC doesn't exist!"));
+	if (!((*plr)->name = validate_str(&hdd, PROG_NAME_LENGTH)))
+		return (print_error("Champ name error!"));
+	if (((*plr)->code_size = validate_num(&hdd, sizeof(uint32_t)))
 			> CHAMP_MAX_SIZE)
-		ft_error("Wrong code size!", -1);
-	if (!(plr->comment = validate_str(&hdd, COMMENT_LENGTH)))
-		ft_error("Champ comment error!", -1);
-	if (!(plr->code = validate_code(fd, plr->code_size)))
-		ft_error("Code doesn't match code size", -1);
-	return (plr);
+		return (print_error("Wrong code size!"));
+	if (!((*plr)->comment = validate_str(&hdd, COMMENT_LENGTH)))
+		return (print_error("Champ comment error!"));
+	if (!((*plr)->code = validate_code(fd, (*plr)->code_size)))
+		return (print_error("Code doesn't match code size"));
+	return (EXIT_SUCCESS);
 }
 
 void				champ_validation(t_args *args, t_lst *plrs)
 {
 	int				i;
 	int				fd;
+	t_player		*plr;
 
 	i = 0;
+	plr = NULL;
 	while (i < args->count_players)
 	{
 		if ((fd = open(args->players[i], O_RDONLY)) == -1)
 			ft_error("Cannot open file", -1);
-		lst_prepend(plrs, check_plr(i + 1, fd));
+		if (check_plr(i + 1, fd, &plr) == EXIT_FAILURE)
+		{
+			if (plrs->first)
+				lst_clear(plrs, (t_ffree)dstr_player);
+			else
+				dstr_player(plr);
+			exit(-1);
+		}
+		lst_prepend(plrs, plr);
 		close(fd);
 		i++;
 	}

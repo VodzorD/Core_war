@@ -153,6 +153,7 @@ void					print_intro(t_vm *vm);
 void					print_awards(t_vm *vm);
 void					print_arena(uint8_t *arena);
 int						player_cmp(t_player *left, t_player *right);
+int						print_error(char *error_msg);
 
 static t_op				g_op[17] =
 {
