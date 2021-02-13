@@ -6,7 +6,7 @@
 #    By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 17:29:26 by wscallop          #+#    #+#              #
-#    Updated: 2021/02/13 11:25:50 by wscallop         ###   ########.fr        #
+#    Updated: 2021/02/13 11:49:09 by wscallop         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,7 +87,10 @@ DPN         = $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.d))
 all: $(NAME) $(ASM_COMPIL)
 
 $(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS) 
-	$(CC) -o $(NAME) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS)
+	@$(CC) -o $(NAME) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS)
+	@echo "\n"
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling corewar: \033[36m " $(NAME)
+	@echo "\n"
 -include $(DPN)
 
 $(OBJECTS_DIRECTORY): lib
@@ -97,10 +100,13 @@ $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
 	@$(CC) $(FLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
 
-$(ASM_COMPIL) : $(LIBFT) $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
+$(ASM_COMPIL) : $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
 	@$(CC) -o $(ASM_COMPIL) $(FLAGS) $(LIBRARIES) -I ./includes/asm $(OBJECTS_ASM)
+	@echo "\n"
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling asm: \033[36m " $(ASM_COMPIL)
+	@echo "\n"
 
-$(OBJECTS_ASM_DIRECTORY):
+$(OBJECTS_ASM_DIRECTORY): lib
 	@mkdir -p $(OBJECTS_ASM_DIRECTORY)
 
 $(OBJECTS_ASM_DIRECTORY)%.o : $(SOURCES_DIRECTORY_ASM)%.c includes/asm/asm.h

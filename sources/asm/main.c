@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 17:41:27 by polina            #+#    #+#             */
-/*   Updated: 2021/02/12 21:36:09 by wscallop         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:35:11 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int		main(int ac, char **av)
 	ft_bzero(&st, sizeof(t_asm));
 	name = ft_check_name(av[1]);
 	if ((st.fd_orig = open(av[1], O_RDONLY)) == -1 || \
-	(st.fd_res = open(name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
+			(st.fd_res = open(name, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR)) == -1)
 		error("Failed to open file", 0);
 	ft_init_op_tab(&st);
 	ft_read(&st, name, av[1]);
