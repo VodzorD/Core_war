@@ -6,7 +6,7 @@
 /*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:42:31 by polina            #+#    #+#             */
-/*   Updated: 2021/02/12 20:58:15 by wscallop         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:21:38 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,4 @@ void	ft_parse_name_or_comment(t_asm *st, char *res, char **buf)
 		error("You have something extra at the end of the line "
 			, st->string_num);
 	free(str);
-	free(*buf);
 }

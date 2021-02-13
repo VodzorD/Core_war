@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_read.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: polina <polina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/17 18:54:04 by polina            #+#    #+#             */
-/*   Updated: 2021/02/05 14:35:03 by polina           ###   ########.fr       */
+/*   Updated: 2021/02/12 21:41:40 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	ft_parse_instruction(t_asm *st, char **buf)
 		if ((*buf)[i])
 			ft_read_command(&(*buf)[i], st, 1);
 	}
-	free(*buf);
 }
 
 void	ft_check_condition(char **buf, t_asm *st)
@@ -96,6 +95,7 @@ void	ft_first_read(t_asm *st)
 			else
 				ft_parse_instruction(st, &buf);
 		}
+		free(buf);
 	}
 }
 

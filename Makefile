@@ -6,7 +6,7 @@
 #    By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 17:29:26 by wscallop          #+#    #+#              #
-#    Updated: 2021/02/12 21:07:02 by wscallop         ###   ########.fr        #
+#    Updated: 2021/02/12 22:57:05 by wscallop         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ASM_COMPIL = asm
 CC = gcc
 FLAGS =-Wall -Wextra -Werror
 LIBRARIES = -lft -L $(LIBFT_DIRECTORY)
-INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I ./libft/core/includes -I ./libft/collections/includes -I ./libft/printf/includes -I ./includes/asm/
+INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I ./libft/core/includes -I ./libft/collections/includes -I ./libft/printf/includes -I ./includes/asm/  -I ./libft/string/includes  -I ./libft/getopt/includes 
 
 LIBFT = $(LIBFT_DIRECTORY)libft.a
 LIBFT_DIRECTORY = ./libft/
@@ -82,31 +82,31 @@ OBJECTS_ASM	= $(addprefix $(OBJECTS_ASM_DIRECTORY), $(OBJECTS_ASM_LIST))
 
 .PHONY: all clean fclean re
 
-all: $(NAME)
+all: $(NAME) $(ASM_COMPIL)
 
-$(NAME): $(LIBFT) $(OBJECTS_DIRECTORY) $(OBJECTS) $(ASM_COMPIL)
+$(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS) 
 	$(CC) -o $(NAME) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS)
 
-$(OBJECTS_DIRECTORY):
-	mkdir -p $(OBJECTS_DIRECTORY)
+$(OBJECTS_DIRECTORY): lib
+	@mkdir -p $(OBJECTS_DIRECTORY)
 
 $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
-	$(CC) $(FLAGS) -c $(INCLUDES) -I ./libft/string/includes  -I ./libft/getopt/includes $< -o $@
+	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
 
-$(ASM_COMPIL) : $(LIBFT) $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
+$(ASM_COMPIL) : $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
 	$(CC) -o $(ASM_COMPIL) $(FLAGS) $(LIBRARIES) -I ./includes/asm $(OBJECTS_ASM)
 
-$(OBJECTS_ASM_DIRECTORY):
-	mkdir -p $(OBJECTS_ASM_DIRECTORY)
+$(OBJECTS_ASM_DIRECTORY):  lib
+	@mkdir -p $(OBJECTS_ASM_DIRECTORY)
 
 $(OBJECTS_ASM_DIRECTORY)%.o : $(SOURCES_DIRECTORY_ASM)%.c ./includes/asm/asm.h
 	$(CC) $(FLAGS) -c $(INCLUDES)  $< -o $@
 
-$(LIBFT):
-	$(MAKE) -sC $(LIBFT_DIRECTORY)
+lib:
+	@$(MAKE) -C $(LIBFT_DIRECTORY)
 
 clean:
-	$(MAKE) -sC $(LIBFT_DIRECTORY) clean
+	@$(MAKE) -C $(LIBFT_DIRECTORY) clean
 	rm -rf $(OBJECTS_DIRECTORY)
 
 fclean: clean

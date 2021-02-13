@@ -9,12 +9,12 @@ IOPT		= -I./core/includes		\
               -I./string/includes		\
 			  -I./getopt/includes
 
-AR			= /usr/bin/ar -rc
+AR			= ar -rc
 RM			= /bin/rm -rf
 RANLIB		= /usr/bin/ranlib
 MKDIR		= /bin/mkdir -p
 
-SRCDIR		= .
+SRCDIR		= ./
 OBJDIR		= ./objects
 
 SRCNAME		= printf/src/ft_printf.c				\
@@ -180,7 +180,7 @@ $(NAME): $(OBJ) $(OBJDIR)
 	@echo "\033[32m [OK] \033[0m\033[32mCompiling library: \033[36m " $(NAME)
 	@echo "\n"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)%.c
 	@$(MKDIR) $(OBJDIR)/printf/src/types
 	@$(MKDIR) $(OBJDIR)/printf/src/tools
 	@$(MKDIR) $(OBJDIR)/printf/src/specs
