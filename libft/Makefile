@@ -1,6 +1,6 @@
 NAME		= libft.a
 
-GCC			= /usr/bin/clang
+GCC			= gcc
 WOPT		= -Wall -Wextra -Werror
 OOPT		= -O2
 IOPT		= -I./core/includes		\
@@ -165,6 +165,8 @@ SRCNAME		= printf/src/ft_printf.c				\
 
 SRC			= $(addprefix $(SRCDIR)/, $(SRCNAME))
 OBJ			= $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.o))
+DPN         = $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.d))
+
 
 CLEAR       = "\033[K"
 EOC			= "\033[0;0m"
@@ -172,6 +174,9 @@ GREEN		= "\033[0;32m"
 CR			= "\r"$(CLEAR)
 
 all: $(NAME)
+
+-include $(DPN)
+
 
 $(NAME): $(OBJ) $(OBJDIR)
 	@$(AR) $(NAME) $(OBJ)
@@ -188,7 +193,7 @@ $(OBJDIR)/%.o: $(SRCDIR)%.c
 	@$(MKDIR) $(OBJDIR)/collections/src
 	@$(MKDIR) $(OBJDIR)/string/src
 	@$(MKDIR) $(OBJDIR)/getopt/src
-	@$(GCC) $(WOPT) $(OOPT) $(IOPT) -g -c $< -o $@
+	@$(GCC) $(WOPT) $(OOPT) $(IOPT) -MMD -MP -c $< -o $@
 	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
 
 clean:

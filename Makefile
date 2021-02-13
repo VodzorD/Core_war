@@ -6,7 +6,7 @@
 #    By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/24 17:29:26 by wscallop          #+#    #+#              #
-#    Updated: 2021/02/12 22:57:05 by wscallop         ###   ########.fr        #
+#    Updated: 2021/02/13 11:25:50 by wscallop         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,10 @@ NAME = corewar
 ASM_COMPIL = asm
 
 CC = gcc
-FLAGS =-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 LIBRARIES = -lft -L $(LIBFT_DIRECTORY)
-INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I ./libft/core/includes -I ./libft/collections/includes -I ./libft/printf/includes -I ./includes/asm/  -I ./libft/string/includes  -I ./libft/getopt/includes 
+
+INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I ./libft/core/includes -I ./libft/collections/includes -I ./libft/string/includes -I ./libft/getopt/includes -I ./libft/printf/includes -I ./includes/asm/
 
 LIBFT = $(LIBFT_DIRECTORY)libft.a
 LIBFT_DIRECTORY = ./libft/
@@ -79,6 +80,7 @@ OBJECTS	= $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
 OBJECTS_ASM_DIRECTORY = objects/asm/
 OBJECTS_ASM_LIST = $(patsubst %.c, %.o, $(SOURCES_ASM_LIST))
 OBJECTS_ASM	= $(addprefix $(OBJECTS_ASM_DIRECTORY), $(OBJECTS_ASM_LIST))
+DPN         = $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.d))
 
 .PHONY: all clean fclean re
 
@@ -86,21 +88,24 @@ all: $(NAME) $(ASM_COMPIL)
 
 $(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS) 
 	$(CC) -o $(NAME) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS)
+-include $(DPN)
 
 $(OBJECTS_DIRECTORY): lib
 	@mkdir -p $(OBJECTS_DIRECTORY)
 
 $(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
-	$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	@$(CC) $(FLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
 
-$(ASM_COMPIL) : $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
-	$(CC) -o $(ASM_COMPIL) $(FLAGS) $(LIBRARIES) -I ./includes/asm $(OBJECTS_ASM)
+$(ASM_COMPIL) : $(LIBFT) $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
+	@$(CC) -o $(ASM_COMPIL) $(FLAGS) $(LIBRARIES) -I ./includes/asm $(OBJECTS_ASM)
 
-$(OBJECTS_ASM_DIRECTORY):  lib
+$(OBJECTS_ASM_DIRECTORY):
 	@mkdir -p $(OBJECTS_ASM_DIRECTORY)
 
-$(OBJECTS_ASM_DIRECTORY)%.o : $(SOURCES_DIRECTORY_ASM)%.c ./includes/asm/asm.h
-	$(CC) $(FLAGS) -c $(INCLUDES)  $< -o $@
+$(OBJECTS_ASM_DIRECTORY)%.o : $(SOURCES_DIRECTORY_ASM)%.c includes/asm/asm.h
+	@$(CC) $(FLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
 
 lib:
 	@$(MAKE) -C $(LIBFT_DIRECTORY)
