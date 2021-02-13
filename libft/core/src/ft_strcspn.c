@@ -6,11 +6,11 @@
 /*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/21 17:54:50 by jpasty            #+#    #+#             */
-/*   Updated: 2020/06/21 17:54:50 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 19:14:07 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 size_t			ft_strcspn(const char *str, const char *sym)
 {

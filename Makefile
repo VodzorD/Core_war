@@ -1,96 +1,128 @@
-NAME		= corewar
-LIBNAME		= libft.a
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2020/11/24 17:29:26 by wscallop          #+#    #+#              #
+#    Updated: 2021/02/13 11:49:09 by wscallop         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-GCC			= /usr/bin/clang
-WOPT		= -Wall -Wextra -Werror
-OOPT		= -g
-IOPT		= -I $(INCDIR)
+NAME = corewar
+ASM_COMPIL = asm
 
-AR			= /usr/bin/ar -rc
-MAKE		= /usr/bin/make -C
-RANLIB		= /usr/bin/ranlib
-MKDIR		= /bin/mkdir -p
-RM			= /bin/rm -rf
-ZSH			= /bin/zsh
+CC = gcc
+FLAGS = -Wall -Wextra -Werror
+LIBRARIES = -lft -L $(LIBFT_DIRECTORY)
 
-LIBDIR		= libft
-SRCDIR		= sources
-OBJDIR		= objects
-INCDIR		= includes
-DPNDIR		= depends
+INCLUDES = -I $(HEADERS_DIRECTORY) -I $(LIBFT_HEADERS) -I ./libft/core/includes -I ./libft/collections/includes -I ./libft/string/includes -I ./libft/getopt/includes -I ./libft/printf/includes -I ./includes/asm/
 
-SRCNAME		= crw_dying_process.c \
-                             crw_execute.c \
-                             crw_init_game.c \
-                             cursor.c \
-                             cursor_utils.c \
-                             champ_validation.c \
-                             parse_args.c \
-                             main.c \
-                             op_args_validation.c \
-                             player.c \
-                             op/op_add.c \
-                             op/op_aff.c \
-                             op/op_and.c \
-                             op/op_fork.c \
-                             op/op_ld.c \
-                             op/op_ldi.c \
-                             op/op_lfork.c \
-                             op/op_live.c \
-                             op/op_lld.c \
-                             op/op_lldi.c \
-                             op/op_or.c \
-                             op/op_st.c \
-                             op/op_sti.c \
-                             op/op_sub.c \
-                             op/op_xor.c \
-                             op/op_zjmp.c \
-                             op/utils.c
+LIBFT = $(LIBFT_DIRECTORY)libft.a
+LIBFT_DIRECTORY = ./libft/
+LIBFT_HEADERS = $(LIBFT_DIRECTORY)includes
 
-SRC			= $(addprefix $(SRCDIR)/, $(SRCNAME))
-OBJ			= $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.o))
-DPN			= $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.d))
-LFT			= $(addprefix $(LIBDIR)/, $(LIBNAME))
-LFTOBJ		= $(LIBDIR)/objects/*.o
+HEADERS_LIST = corewar.h op.h
+HEADERS_DIRECTORY = ./includes/
+HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
+SOURCES_DIRECTORY = ./sources/
+SOURCES_LIST = 	champ_validation.c \
+				crw_dying_process.c \
+				crw_execute.c \
+				crw_init_game.c \
+				crw_utils.c \
+				cursor.c \
+				cursor_utils.c \
+				main.c \
+				op_add.c \
+				op_aff.c \
+				op_and.c \
+				op_arg_handlers.c \
+				op_args_validation.c \
+				op_fork.c \
+				op_ld.c \
+				op_ldi.c \
+				op_lfork.c \
+				op_live.c \
+				op_lld.c \
+				op_lldi.c \
+				op_or.c \
+				op_st.c \
+				op_sti.c \
+				op_sub.c \
+				op_xor.c \
+				op_zjmp.c \
+				parse_args.c \
+				player.c \
+				print.c \
+				utils.c
 
-CLEAR       = "\033[K"
-EOC			= "\033[0;0m"
-GREEN		= "\033[32m"
-TURQUOISE   = "\033[36m"
-CR			= "\r"$(CLEAR)
+SOURCES_DIRECTORY_ASM = ./sources/asm/
+SOURCES_ASM_LIST = 	count_bytes_for_command.c \
+					count_bytes_for_command2.c \
+					ft_find_command.c \
+					ft_init_label.c \
+					ft_parse.c \
+					ft_print_command.c \
+					ft_read.c \
+					ft_second_read.c \
+					main.c \
+					utilits.c
 
-all: $(LFT) $(NAME)
+SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
+OBJECTS_DIRECTORY = objects/
+OBJECTS_LIST = $(patsubst %.c, %.o, $(SOURCES_LIST))
+OBJECTS	= $(addprefix $(OBJECTS_DIRECTORY), $(OBJECTS_LIST))
+
+OBJECTS_ASM_DIRECTORY = objects/asm/
+OBJECTS_ASM_LIST = $(patsubst %.c, %.o, $(SOURCES_ASM_LIST))
+OBJECTS_ASM	= $(addprefix $(OBJECTS_ASM_DIRECTORY), $(OBJECTS_ASM_LIST))
+DPN         = $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.d))
+
+.PHONY: all clean fclean re
+
+all: $(NAME) $(ASM_COMPIL)
+
+$(NAME): $(OBJECTS_DIRECTORY) $(OBJECTS) 
+	@$(CC) -o $(NAME) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJECTS)
+	@echo "\n"
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling corewar: \033[36m " $(NAME)
+	@echo "\n"
 -include $(DPN)
 
-$(NAME): $(LFT) $(OBJ)
-	@$(GCC) $(WOPT) $(OOPT) $(IOPT) $(OBJ) -o $(NAME) -L $(LIBDIR) -lft
-	@echo "\n"
-	@echo "\033[32m [OK] \033[0m\033[32mExecution file:\033[36m" $(NAME)
-	@echo $(EOC)
+$(OBJECTS_DIRECTORY): lib
+	@mkdir -p $(OBJECTS_DIRECTORY)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	@$(MKDIR) $(OBJDIR)
-	@$(MKDIR) $(OBJDIR)/op
-	echo $(SRC)
-	@$(GCC) $(WOPT) $(OOPT) -MMD -MP -c $< -o $@
+$(OBJECTS_DIRECTORY)%.o : $(SOURCES_DIRECTORY)%.c $(HEADERS)
+	@$(CC) $(FLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
 	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
 
-$(LFT):
-	@$(MAKE) $(LIBDIR)
+$(ASM_COMPIL) : $(OBJECTS_ASM_DIRECTORY) $(OBJECTS_ASM)
+	@$(CC) -o $(ASM_COMPIL) $(FLAGS) $(LIBRARIES) -I ./includes/asm $(OBJECTS_ASM)
+	@echo "\n"
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling asm: \033[36m " $(ASM_COMPIL)
+	@echo "\n"
+
+$(OBJECTS_ASM_DIRECTORY): lib
+	@mkdir -p $(OBJECTS_ASM_DIRECTORY)
+
+$(OBJECTS_ASM_DIRECTORY)%.o : $(SOURCES_DIRECTORY_ASM)%.c includes/asm/asm.h
+	@$(CC) $(FLAGS) $(INCLUDES) -MMD -MP -c $< -o $@
+	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
+
+lib:
+	@$(MAKE) -C $(LIBFT_DIRECTORY)
 
 clean:
-	@$(RM) $(OBJ) $(OBJDIR)
-	@$(MAKE) $(LIBDIR) clean
-	@echo "\033[31m [OK] \033[0m\033[31mDeleting catalog and binaries:\033[33m " $(OBJDIR)
+	@$(MAKE) -C $(LIBFT_DIRECTORY) clean
+	rm -rf $(OBJECTS_DIRECTORY)
 
 fclean: clean
-	@$(RM) $(NAME)
-	@$(MAKE) $(LIBDIR) fclean
-	@echo "\033[31m [OK] \033[0m\033[31mDeleting execution file:\033[33m " $(NAME)
-	@echo $(EOC)
+	rm -f $(LIBFT)
+	rm -f $(ASM_COMPIL)
+	rm -f $(NAME)
 
 re: fclean all
-
-.PHONY: all clean fclean re norm

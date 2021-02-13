@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: polina <polina@student.42.fr>              +#+  +:+       +#+        */
+/*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:42:31 by polina            #+#    #+#             */
-/*   Updated: 2021/02/05 14:57:19 by polina           ###   ########.fr       */
+/*   Updated: 2021/02/13 11:21:38 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ char	*ft_check_name(char *name)
 	char	*tmp_name;
 	char	*new_name;
 
-	if (!ft_strendwith(".s", name)
+	point = NULL;
+	if (!ft_strendwith(".s", name) \
 		|| !(point = ft_strstr(name, ".s")))
 		error("Wrong file extension", 0);
 	tmp_name = ft_strsub(name, 0, point - name);
@@ -83,5 +84,4 @@ void	ft_parse_name_or_comment(t_asm *st, char *res, char **buf)
 		error("You have something extra at the end of the line "
 			, st->string_num);
 	free(str);
-	free(*buf);
 }

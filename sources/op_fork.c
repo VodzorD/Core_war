@@ -6,11 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:58:55 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:02:06 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:54:35 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/corewar.h"
+#include "corewar.h"
 
 void				op_fork(t_cursor *cursor)
 {

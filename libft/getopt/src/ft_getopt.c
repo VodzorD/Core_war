@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getopt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jpasty <jpasty@student.21-school.ru>       +#+  +:+       +#+        */
+/*   By: wscallop <wscallop@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 23:22:09 by jpasty            #+#    #+#             */
-/*   Updated: 2021/02/11 23:22:09 by jpasty           ###   ########.fr       */
+/*   Updated: 2021/02/12 22:33:06 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/libft.h"
 
 int				no_more_options(char **optcursor)
 {

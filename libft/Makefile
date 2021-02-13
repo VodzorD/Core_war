@@ -1,19 +1,20 @@
 NAME		= libft.a
 
-GCC			= /usr/bin/clang
+GCC			= gcc
 WOPT		= -Wall -Wextra -Werror
 OOPT		= -O2
-IOPT		= -I ./core/includes		\
-              -I ./collections/includes	\
-              -I ./printf/includes		\
-              -I ./string/includes
+IOPT		= -I./core/includes		\
+              -I./collections/includes	\
+              -I./printf/includes		\
+              -I./string/includes		\
+			  -I./getopt/includes
 
-AR			= /usr/bin/ar -rc
+AR			= ar -rc
 RM			= /bin/rm -rf
 RANLIB		= /usr/bin/ranlib
 MKDIR		= /bin/mkdir -p
 
-SRCDIR		= .
+SRCDIR		= ./
 OBJDIR		= ./objects
 
 SRCNAME		= printf/src/ft_printf.c				\
@@ -102,6 +103,7 @@ SRCNAME		= printf/src/ft_printf.c				\
 			  core/src/ft_lstiter.c				\
 			  core/src/ft_lstmap.c				\
 			  core/src/ft_isupper.c				\
+			  core/src/ft_strcspn.c				\
 			  core/src/ft_islower.c				\
 			  core/src/ft_isspace.c				\
 			  core/src/ft_isseparator.c			\
@@ -134,6 +136,12 @@ SRCNAME		= printf/src/ft_printf.c				\
 			  core/src/ft_max.c					\
 			  core/src/ft_abs.c					\
 			  core/src/ft_free.c				\
+			  core/src/ft_is_number.c			\
+			  core/src/ft_strendwith.c			\
+			  core/src/ft_len_two_dim_array.c	\
+			  core/src/ft_del_two_dim_array.c	\
+			  core/src/ft_strjoin_free_all.c	\
+			  collections/src/itr_foreach.c		\
 			  collections/src/ft_hash.c			\
 			  collections/src/queue.c			\
 			  collections/src/list.c			\
@@ -151,10 +159,14 @@ SRCNAME		= printf/src/ft_printf.c				\
               collections/src/queue_push_pop.c				\
               collections/src/queue_peek.c					\
               string/src/string_builder.c					\
-              string/src/string_builder_operats.c
+              string/src/string_builder_operats.c			\
+			  getopt/src/ft_getopt_long.c					\
+			  getopt/src/ft_getopt.c
 
 SRC			= $(addprefix $(SRCDIR)/, $(SRCNAME))
 OBJ			= $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.o))
+DPN         = $(addprefix $(OBJDIR)/, $(SRCNAME:.c=.d))
+
 
 CLEAR       = "\033[K"
 EOC			= "\033[0;0m"
@@ -163,21 +175,25 @@ CR			= "\r"$(CLEAR)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+-include $(DPN)
+
+
+$(NAME): $(OBJ) $(OBJDIR)
 	@$(AR) $(NAME) $(OBJ)
 	@$(RANLIB) $(NAME)
 	@echo "\n"
 	@echo "\033[32m [OK] \033[0m\033[32mCompiling library: \033[36m " $(NAME)
 	@echo "\n"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
+$(OBJDIR)/%.o: $(SRCDIR)%.c
 	@$(MKDIR) $(OBJDIR)/printf/src/types
 	@$(MKDIR) $(OBJDIR)/printf/src/tools
 	@$(MKDIR) $(OBJDIR)/printf/src/specs
 	@$(MKDIR) $(OBJDIR)/core/src
 	@$(MKDIR) $(OBJDIR)/collections/src
 	@$(MKDIR) $(OBJDIR)/string/src
-	@$(GCC) $(WOPT) $(OOPT) $(IOPT) -g -c $< -o $@
+	@$(MKDIR) $(OBJDIR)/getopt/src
+	@$(GCC) $(WOPT) $(OOPT) $(IOPT) -MMD -MP -c $< -o $@
 	@echo "\033[32m [OK] \033[0m\033[32mCompiling:\033[36m " $@
 
 clean:

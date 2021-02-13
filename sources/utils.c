@@ -6,11 +6,11 @@
 /*   By: cshinoha <cshinoha@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 19:00:24 by cshinoha          #+#    #+#             */
-/*   Updated: 2021/02/11 19:03:25 by cshinoha         ###   ########.fr       */
+/*   Updated: 2021/02/12 17:51:22 by wscallop         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/corewar.h"
+#include "corewar.h"
 
 int32_t		bytecode_to_int32(const uint8_t *arena, int32_t addr, int32_t size)
 {
