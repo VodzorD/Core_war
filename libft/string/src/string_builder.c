@@ -40,6 +40,7 @@ void				sb_reset(t_str_bld *sb)
 void				sb_free(t_str_bld *sb)
 {
 	lst_free(sb->fragments, (t_ffree) & str_free);
+	free(sb->concated);
 	sb->concated = NULL;
 	sb->len = 0;
 	free(sb);

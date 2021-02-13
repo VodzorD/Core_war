@@ -72,6 +72,8 @@ void			crw_exec(t_vm *vm)
 		if (vm->arg.dump_cycle && vm->cycles == vm->arg.dump_cycle)
 		{
 			print_arena(vm->arena);
+			lst_clear(&vm->players, (t_ffree)dstr_player);
+			qu_clear(&vm->cursors);
 			exit(0);
 		}
 		exec_cycle(vm);

@@ -52,7 +52,7 @@ void			qu_free(t_qu *qu)
 void			qu_clear(t_qu *qu)
 {
 	while (!qu_is_empty(qu))
-		qu_pop_head(qu);
+		free(qu_pop_head(qu));
 }
 
 int				qu_contains(t_qu *qu, t_pntr data)
